@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondColor) !important;
+  border-radius: 80px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--firstColor) !important;
+
+  cursor: -webkit-grab !important;
+  border-radius: 80px !important;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  /* padding-top: 4rem !important; */
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* scrollbar-gutter: stable both-edges; */
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* @layer components {
+  .bg-wave {
+    background-image: url("/src/assets/images/wave.svg");
+  }
+}
+
+.bg-wave svg {
+  fill: currentColor; 
+  color: var(--firstColor); 
+} */
+
+.ant-input-number-input-wrap {
+  font-size: 14px;
+}
+
+.ant-picker-input > input {
+  font-size: 14px !important;
+}
+
+.select-item-default {
+  /* .ant-select-selection-item {
+    font-size: 14px !important;
+  } */
+
+  .ant-input-affix-wrapper {
+    padding: 2.6px 11px !important;
+  }
+}
+
+.ant-input {
+  font-size: 14px !important;
+}
+
+.ant-input-number-input-wrapper {
+  font-size: 14px;
+}
+
+.ant-input-affix-wrapper-lg {
+  font-size: 14px;
+}
+
+/* .ant-input-number-group-wrapper {
+  font-size: 14px;
+  border: none  !important;
+} */
+
+.ant-input-affix-wrapper-lg:focus {
+  border: none !important;
+}
+
+.ant-input-number-lg input.ant-input-number-input {
+  height: 37px !important;
+}
+
+.ant-table {
+  /* scrollbar-color: initial !important; */
+  /* scrollbar-: "10px" !important; */
+}
+
+/* .ant-page-header-heading {
+  display: flex !important;
+  flex-direction: column !important;
+  /* align-items: center !important; */
+/* justify-content: center !important; 
+  
+} 
+  */
+
+@media screen and (max-width: 749px) {
+  .ant-page-header-heading {
+    justify-content: center !important;
+    /* flex-direction: column !important; */
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .ant-page-header-heading {
+    justify-content: space-between !important;
+  }
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  justify-content: center;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes leave {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+.animate-enter {
+  animation: enter 0.2s ease-out forwards;
+}
+
+.animate-leave {
+  animation: leave 0.2s ease-in forwards;
+}
