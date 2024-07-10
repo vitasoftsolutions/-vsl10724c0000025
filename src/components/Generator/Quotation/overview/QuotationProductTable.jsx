@@ -320,18 +320,6 @@ export const QuotationProductTable = ({
     setTotalDiscount(totalDiscount);
   }, [formValues, products]);
 
-  // products?.length > 0 &&
-  //   dataSource.push({
-  //     id: "",
-  //     name: "Total",
-  //     unitCost: "",
-  //     quantity: totalQuantity,
-  //     subTotal: totalPrice,
-  //     tax: totalTax,
-  //     discount: totalDiscount,
-  //     action: false,
-  //   });
-
   form.setFieldsValue(formValues);
 
   const tableStyle = {

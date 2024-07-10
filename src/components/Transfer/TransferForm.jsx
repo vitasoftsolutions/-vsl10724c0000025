@@ -1,11 +1,6 @@
 import { Col, Form, Row } from "antd";
 import { useEffect, useState } from "react";
-import {
-  colLayout,
-  fullColLayout,
-  largeLayout,
-  rowLayout,
-} from "../../layout/FormLayout";
+import { colLayout, fullColLayout, rowLayout } from "../../layout/FormLayout";
 import { getCurrentDate } from "../../utilities/lib/currentDate";
 import {
   calculateGrandTotal,
@@ -18,7 +13,6 @@ import CustomInput from "../Shared/Input/CustomInput";
 import CustomSelect from "../Shared/Select/CustomSelect";
 import CustomUploader from "../Shared/Upload/CustomUploader";
 import { TransferProductTable } from "./overview/TransferProductTable";
-import { WarehouseTransferComponent } from "./WarehouseTransferComponent";
 
 const options = [
   {
@@ -115,13 +109,11 @@ const TransferForm = ({
     <>
       <CustomForm {...props}>
         <Row {...rowLayout}>
-          <WarehouseTransferComponent />
+          {/* <WarehouseTransferComponent />
+           */}
 
-          <Col {...largeLayout}>
-            <TransferDateComponent />
-          </Col>
-          <Col {...largeLayout}>
-            <FileStatusComponent />
+          <Col {...fullColLayout}>
+            <CustomInput label="Warehouse Name" name="name" required={true} />
           </Col>
 
           <TransferProductTable
@@ -132,6 +124,13 @@ const TransferForm = ({
             productUnits={productUnits}
             setProductUnits={setProductUnits}
           />
+
+          <Col {...colLayout}>
+            <TransferDateComponent />
+          </Col>
+          <Col {...colLayout}>
+            <FileStatusComponent />
+          </Col>
 
           <Col {...colLayout}>
             <CustomInput
@@ -146,7 +145,7 @@ const TransferForm = ({
           </Col>
 
           <Col {...fullColLayout}>
-            <CustomInput label="Sale Note" type={"textarea"} name={"note"} />
+            <CustomInput label="Note" type={"textarea"} name={"note"} />
           </Col>
         </Row>
       </CustomForm>

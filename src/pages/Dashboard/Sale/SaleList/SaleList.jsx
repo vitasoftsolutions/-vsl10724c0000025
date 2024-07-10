@@ -7,7 +7,6 @@ import {
   ProductFilter,
   SaleStatusFilter,
   TaxFilter,
-  WarehouseFilter,
 } from "../../../../components/ReusableComponent/SearchFormComponents/SearchFormComponent";
 import { SaleCreate } from "../../../../components/Sale/SaleCreate";
 import { SaleTable } from "../../../../components/Sale/SaleTable";
@@ -118,7 +117,7 @@ const SearchComponent = () => {
   return (
     <Row {...rowLayout}>
       <CustomerFilter />
-      <WarehouseFilter />
+      {/* <WarehouseFilter /> */}
       <CashierFilter />
       <ProductFilter name="sale_product_ids" />
       <TaxFilter />

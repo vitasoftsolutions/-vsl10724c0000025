@@ -6,7 +6,7 @@ import { fullColLayout } from "../../layout/FormLayout";
 import { useGetWarehousesQuery } from "../../redux/services/warehouse/warehouseApi";
 import { useGlobalParams } from "../../utilities/hooks/useParams";
 import { openNotification } from "../../utilities/lib/openToaster";
-import { ProductTable } from "../Shared/ProductControllerComponent/ProductTable";
+import { ProductTable } from "../../components/Shared/ProductControllerComponent/ProductTable";
 
 const SearchWarehouse = ({ setWarehouses }) => {
   const [keyword, setKeyword] = useState(null);

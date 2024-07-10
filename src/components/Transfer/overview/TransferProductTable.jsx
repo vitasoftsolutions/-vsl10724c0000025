@@ -2,29 +2,28 @@ import { Button, Col, Form, Modal, Row, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { FaEdit, FaMinus, FaPlus } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { useSelector } from "react-redux";
 import { colLayout, rowLayout } from "../../../layout/FormLayout";
+import { useCurrency } from "../../../redux/services/pos/posSlice";
 import { useGetAllUnitQuery } from "../../../redux/services/unit/unitApi";
-import CustomForm from "../../Shared/Form/CustomForm";
-import CustomInput from "../../Shared/Input/CustomInput";
-import { CustomQuantityInput } from "../../Shared/Input/CustomQuantityInput";
-import { ProductController } from "../../Shared/ProductControllerComponent/ProductController";
-import CustomSelect from "../../Shared/Select/CustomSelect";
+import {
+  DEFAULT_SELECT_VALUES,
+  useGlobalParams,
+} from "../../../utilities/hooks/useParams";
+import { calculateOriginalPrice } from "../../../utilities/lib/calculatePrice";
+import { calculateTotals } from "../../../utilities/lib/calculateTotals";
+import { showCurrency } from "../../../utilities/lib/currency";
 import {
   decrementCounter,
   incrementCounter,
   onDelete,
   onQuantityChange,
 } from "../../../utilities/lib/productTable/counters";
-import { calculateTotals } from "../../../utilities/lib/calculateTotals";
-import {
-  DEFAULT_SELECT_VALUES,
-  useGlobalParams,
-} from "../../../utilities/hooks/useParams";
-import { calculateOriginalPrice } from "../../../utilities/lib/calculatePrice";
-import { useSelector } from "react-redux";
-import { useCurrency } from "../../../redux/services/pos/posSlice";
-import { showCurrency } from "../../../utilities/lib/currency";
-import { getWarehouseQuantity } from "../../../utilities/lib/getWarehouseQty";
+import CustomForm from "../../Shared/Form/CustomForm";
+import CustomInput from "../../Shared/Input/CustomInput";
+import { CustomQuantityInput } from "../../Shared/Input/CustomQuantityInput";
+import { ProductController } from "../../Shared/ProductControllerComponent/ProductController";
+import CustomSelect from "../../Shared/Select/CustomSelect";
 
 const columns = [
   {
@@ -435,7 +434,6 @@ export const TransferProductTable = ({
   setProductUnits,
 }) => {
   const form = Form.useFormInstance();
-  const warehouseId = Form.useWatch("from_warehouse_id", form);
 
   const [productEditModal, setProductEditModal] = useState(false);
   const [productId, setProductId] = useState(undefined);
@@ -464,11 +462,11 @@ export const TransferProductTable = ({
         purchase_units,
         tax_id,
         taxes,
-        product_qties,
+        // product_qties,
         tax_method,
       } = product ?? {};
 
-      const stock = getWarehouseQuantity(product_qties, warehouseId);
+      // const stock = getWarehouseQuantity(product_qties, warehouseId);
 
       setFormValuesId(
         id,
@@ -492,7 +490,7 @@ export const TransferProductTable = ({
           currency
         ),
         delete: true,
-        stock,
+        // stock,
         tax: showCurrency(formValues.product_list.tax[id], currency),
         subTotal: showCurrency(formValues.product_list.total[id], currency),
         onDelete,

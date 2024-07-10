@@ -18,7 +18,6 @@ import {
 import { openNotification } from "../../utilities/lib/openToaster";
 import CustomerCreate from "../Customer/CustomerCreate";
 import { CashierComponent } from "../ReusableComponent/CashierComponent";
-import { WarehouseComponent } from "../ReusableComponent/WarehouseComponent";
 import CustomDatepicker from "../Shared/DatePicker/CustomDatepicker";
 import CustomInput from "../Shared/Input/CustomInput";
 import CustomModal from "../Shared/Modal/CustomModal";
@@ -220,7 +219,7 @@ const RegisterForm = ({ products, setProducts }) => {
     <GlobalUtilityStyle className="pb-5 ">
       <div className="flex flex-col">
         <Row gutter={5}>
-          <Col span={4}>
+          <Col span={6}>
             <CustomDatepicker
               name={"sale_at"}
               required={true}
@@ -229,16 +228,11 @@ const RegisterForm = ({ products, setProducts }) => {
               size="default"
             />
           </Col>
-
-          <Col span={6}>
-            <WarehouseComponent label={false} size="default" />
+          <Col span={12}>
+            <CustomerComponent size="default" />
           </Col>
           <Col span={6}>
             <CashierComponent label={false} required={true} size="default" />
-          </Col>
-
-          <Col span={8}>
-            <CustomerComponent size="default" />
           </Col>
 
           <Col span={12}>
@@ -253,10 +247,10 @@ const RegisterForm = ({ products, setProducts }) => {
           </Col>
           <Col span={12}>
             <Row gutter={5}>
-              <Col span={14}>
+              <Col span={12}>
                 <CurrencyComponent size="default" />
               </Col>
-              <Col span={10}>
+              <Col span={12}>
                 <CurrencyExchangeComponent size="default" />
               </Col>
             </Row>

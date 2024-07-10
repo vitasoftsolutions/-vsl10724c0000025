@@ -1,6 +1,7 @@
 import { Col, Form, Row } from "antd";
 import { useEffect, useState } from "react";
 import {
+  colLayout,
   fullColLayout,
   largeLayout,
   rowLayout,
@@ -10,18 +11,17 @@ import {
   calculateTotalPrice,
   calculateTotalTax,
 } from "../../../utilities/lib/generator/generatorUtils";
+import { useSetFieldValue } from "../../../utilities/lib/updateFormValues/useInitialFormField";
 import { CashierComponent } from "../../ReusableComponent/CashierComponent";
 import { OrderTaxComponent } from "../../ReusableComponent/OrderTaxComponent";
 import { SupplierComponent } from "../../ReusableComponent/SupplierComponent";
-import { WarehouseComponent } from "../../ReusableComponent/WarehouseComponent";
+import { TotalRow } from "../../ReusableComponent/TotalRow";
 import CustomForm from "../../Shared/Form/CustomForm";
 import CustomInput from "../../Shared/Input/CustomInput";
 import CustomSelect from "../../Shared/Select/CustomSelect";
 import CustomUploader from "../../Shared/Upload/CustomUploader";
 import { CustomerComponent } from "../overview/CustomerComponent";
 import { QuotationProductTable } from "./overview/QuotationProductTable";
-import { TotalRow } from "../../ReusableComponent/TotalRow";
-import { useSetFieldValue } from "../../../utilities/lib/updateFormValues/useInitialFormField";
 
 const StatusComponent = () => {
   useSetFieldValue("status", "Pending");
@@ -121,17 +121,14 @@ export const InvoiceForm = ({
     <>
       <CustomForm {...props}>
         <Row {...rowLayout}>
-          <Col {...largeLayout}>
-            <WarehouseComponent />
+          <Col {...colLayout}>
+            <CustomerComponent />
           </Col>
-          <Col {...largeLayout}>
+          <Col {...colLayout}>
             <CashierComponent />
           </Col>
-          <Col {...largeLayout}>
+          <Col {...colLayout}>
             <SupplierComponent />
-          </Col>
-          <Col {...largeLayout}>
-            <CustomerComponent />
           </Col>
 
           <QuotationProductTable

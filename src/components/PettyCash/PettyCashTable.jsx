@@ -97,6 +97,7 @@ export const PettyCashTable = ({
         isLoading={isLoading}
         isRowSelection={true}
         created_at={false}
+        action={false}
       />
 
       <DeleteModal

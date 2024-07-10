@@ -1,10 +1,10 @@
 import { useState } from "react";
-import WarehouseCreate from "../../../components/Warehouse/WarehouseCreate";
-import WarehouseTable from "../../../components/Warehouse/WarehouseTable";
-import GlobalContainer from "../../../container/GlobalContainer/GlobalContainer";
-import { WAREHOUSE } from "../../../utilities/apiEndpoints/inventory.api";
-import { useCustomDebounce } from "../../../utilities/hooks/useDebounce";
-import { useFilterParams } from "../../../utilities/hooks/useParams";
+import WarehouseCreate from "../../components/Warehouse/WarehouseCreate";
+import WarehouseTable from "../../components/Warehouse/WarehouseTable";
+import GlobalContainer from "../../container/GlobalContainer/GlobalContainer";
+import { WAREHOUSE } from "../../utilities/apiEndpoints/inventory.api";
+import { useCustomDebounce } from "../../utilities/hooks/useDebounce";
+import { useFilterParams } from "../../utilities/hooks/useParams";
 
 const columns = [
   {

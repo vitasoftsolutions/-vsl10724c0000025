@@ -2,7 +2,9 @@ import { Button, Col, Form, Modal, Row, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { FaEdit, FaMinus, FaPlus } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { useSelector } from "react-redux";
 import { colLayout, mdColLayout, rowLayout } from "../../../layout/FormLayout";
+import { useCurrency } from "../../../redux/services/pos/posSlice";
 import { useGetAllTaxQuery } from "../../../redux/services/tax/taxApi";
 import { useGetAllUnitQuery } from "../../../redux/services/unit/unitApi";
 import {
@@ -11,6 +13,7 @@ import {
 } from "../../../utilities/hooks/useParams";
 import { calculateOriginalPrice } from "../../../utilities/lib/calculatePrice";
 import { calculateTotals } from "../../../utilities/lib/calculateTotals";
+import { showCurrency } from "../../../utilities/lib/currency";
 import {
   decrementCounter,
   incrementCounter,
@@ -23,10 +26,6 @@ import CustomInput from "../../Shared/Input/CustomInput";
 import { CustomQuantityInput } from "../../Shared/Input/CustomQuantityInput";
 import { ProductController } from "../../Shared/ProductControllerComponent/ProductController";
 import CustomSelect from "../../Shared/Select/CustomSelect";
-import { useSelector } from "react-redux";
-import { useCurrency } from "../../../redux/services/pos/posSlice";
-import { showCurrency } from "../../../utilities/lib/currency";
-import { getWarehouseQuantity } from "../../../utilities/lib/getWarehouseQty";
 
 const columns = [
   {
@@ -423,80 +422,6 @@ export const SaleProductTable = ({
 }) => {
   const form = Form.useFormInstance();
 
-  // const incrementCounter = (id) => {
-  //   setFormValues((prevFormValues) => {
-  //     const currentQty = prevFormValues.product_list.qty[id] || 1;
-  //     const newQty = Number(currentQty) + 1;
-
-  //     return {
-  //       ...prevFormValues,
-  //       product_list: {
-  //         ...prevFormValues.product_list,
-  //         qty: {
-  //           ...prevFormValues.product_list.qty,
-  //           [id]: newQty,
-  //         },
-  //       },
-  //     };
-  //   });
-  // };
-
-  // const decrementCounter = (id) => {
-  //   setFormValues((prevFormValues) => {
-  //     const currentQty = prevFormValues.product_list.qty[id] || 1;
-  //     const newQty = Math.max(Number(currentQty) - 1, 0);
-
-  //     return {
-  //       ...prevFormValues,
-  //       product_list: {
-  //         ...prevFormValues.product_list,
-  //         qty: {
-  //           ...prevFormValues.product_list.qty,
-  //           [id]: newQty,
-  //         },
-  //       },
-  //     };
-  //   });
-  // };
-
-  // const onQuantityChange = (id, value) => {
-  //   setFormValues((prevFormValues) => ({
-  //     ...prevFormValues,
-  //     product_list: {
-  //       ...prevFormValues.product_list,
-  //       qty: {
-  //         ...prevFormValues.product_list.qty,
-  //         [id]: parseInt(value, 10) || 0,
-  //       },
-  //     },
-  //   }));
-  // };
-
-  // const onDelete = (id) => {
-  //   setProducts((prevProducts) =>
-  //     prevProducts.filter((product) => product.id !== id)
-  //   );
-
-  //   setFormValues((prevFormValues) => {
-  //     const { product_list } = prevFormValues;
-
-  //     const updatedProductList = Object.keys(product_list).reduce(
-  //       (acc, key) => {
-  //         // eslint-disable-next-line no-unused-vars
-  //         const { [id]: _, ...rest } = product_list[key];
-  //         acc[key] = rest;
-  //         return acc;
-  //       },
-  //       {}
-  //     );
-
-  //     return {
-  //       ...prevFormValues,
-  //       product_list: updatedProductList,
-  //     };
-  //   });
-  // };
-
   const [productEditModal, setProductEditModal] = useState(false);
   const [productId, setProductId] = useState(undefined);
   const [productName, setProductName] = useState(null);
@@ -512,7 +437,7 @@ export const SaleProductTable = ({
   };
 
   const currency = useSelector(useCurrency);
-  const warehouseId = Form.useWatch("warehouse_id", form);
+  // const warehouseId = Form.useWatch("warehouse_id", form);
 
   const dataSource = products?.map((product) => {
     const {
@@ -525,10 +450,10 @@ export const SaleProductTable = ({
       tax_id,
       taxes,
       tax_method,
-      product_qties,
+      // product_qties,
     } = product ?? {};
 
-    const stock = getWarehouseQuantity(product_qties, warehouseId);
+    // const stock = getWarehouseQuantity(product_qties, warehouseId);
 
     // console.log(sale_unit_id, )
 
@@ -553,7 +478,7 @@ export const SaleProductTable = ({
         currency
       ),
       delete: true,
-      stock,
+      // stock,
       discount: showCurrency(formValues.product_list.discount[id], currency),
       tax: showCurrency(formValues.product_list.tax[id], currency),
       subTotal: showCurrency(formValues.product_list.total[id], currency),

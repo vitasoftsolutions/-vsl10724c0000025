@@ -1,21 +1,21 @@
 import { Descriptions, Row, Spin, Tabs } from "antd";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { WarehouseFilter } from "../../../components/ReusableComponent/SearchFormComponents/SearchFormComponent";
-import GlobalContainer from "../../../container/GlobalContainer/GlobalContainer";
-import { rowLayout } from "../../../layout/FormLayout";
-import { useCurrentUser } from "../../../redux/services/auth/authSlice";
-import { useGetWarehouseDetailsQuery } from "../../../redux/services/warehouse/warehouseApi";
-import { useCustomDebounce } from "../../../utilities/hooks/useDebounce";
-import { useFilterParams } from "../../../utilities/hooks/useParams";
-import createDetailsLayout from "../../../utilities/lib/createDetailsLayout";
-import { ExpenseTable } from "./components/ExpenseTable";
-import { PurchaseReturnTable } from "./components/PurchaseReturnTable";
-import { PurchaseTable } from "./components/PurchaseTable";
-import { QuotationTable } from "./components/QutationTable";
-import { SaleReturnTable } from "./components/SaleReturnTable";
-import { SaleTable } from "./components/SaleTable";
-import { getLastWeek } from "../../../utilities/lib/getLastWeek";
+import { WarehouseFilter } from "../components/ReusableComponent/SearchFormComponents/SearchFormComponent";
+import GlobalContainer from "../container/GlobalContainer/GlobalContainer";
+import { rowLayout } from "../layout/FormLayout";
+import { useCurrentUser } from "../redux/services/auth/authSlice";
+import { useGetWarehouseDetailsQuery } from "../redux/services/warehouse/warehouseApi";
+import { useCustomDebounce } from "../utilities/hooks/useDebounce";
+import { useFilterParams } from "../utilities/hooks/useParams";
+import createDetailsLayout from "../utilities/lib/createDetailsLayout";
+import { ExpenseTable } from "../pages/Dashboard/Reports/components/ExpenseTable";
+import { PurchaseReturnTable } from "../pages/Dashboard/Reports/components/PurchaseReturnTable";
+import { PurchaseTable } from "../pages/Dashboard/Reports/components/PurchaseTable";
+import { QuotationTable } from "../pages/Dashboard/Reports/components/QutationTable";
+import { SaleReturnTable } from "../pages/Dashboard/Reports/components/SaleReturnTable";
+import { SaleTable } from "../pages/Dashboard/Reports/components/SaleTable";
+import { getLastWeek } from "../utilities/lib/getLastWeek";
 
 const SearchFilterComponent = () => {
   return (

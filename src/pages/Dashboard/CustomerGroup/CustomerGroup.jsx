@@ -46,7 +46,7 @@ const CustomerGroup = () => {
       setSelectedRows={setSelectedRows}
       setNewColumns={setNewColumns}
       setParams={setParams}
-      // searchFilterContent={<SearchComponent />}
+      popoverWidth={400}
       api={CUSTOMER_GROUP}
     >
       <CustomerGroupCreate />

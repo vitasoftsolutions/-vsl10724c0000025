@@ -77,7 +77,7 @@ export const Supplier = () => {
       setSelectedRows={setSelectedRows}
       setNewColumns={setNewColumns}
       setParams={setParams}
-      // searchFilterContent={<SearchComponent />}
+      popoverWidth={400}
       api={SUPPLIER}
     >
       <SupplierCreate />

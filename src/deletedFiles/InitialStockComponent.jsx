@@ -1,8 +1,8 @@
 import { Button, Form } from "antd";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { CustomQuantityInput } from "../../Shared/Input/CustomQuantityInput";
-import { WarehouseController } from "../../WarehouseController/WarehouseController";
+import { CustomQuantityInput } from "../components/Shared/Input/CustomQuantityInput";
+import { WarehouseController } from "../components/WarehouseController/WarehouseController";
 
 const columns = [
   {

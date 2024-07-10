@@ -1,4 +1,5 @@
 import { Col, Form, Row } from "antd";
+import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { discountTypeOptions } from "../../assets/data/discountTypes";
 import { paymentStatusOptions } from "../../assets/data/paymentStatus";
@@ -15,10 +16,10 @@ import {
   calculateTotalPrice,
   calculateTotalTax,
 } from "../../utilities/lib/generator/generatorUtils";
+import { useSetFieldValue } from "../../utilities/lib/updateFormValues/useInitialFormField";
 import { CashierComponent } from "../ReusableComponent/CashierComponent";
 import { OrderTaxComponent } from "../ReusableComponent/OrderTaxComponent";
 import { TotalRow } from "../ReusableComponent/TotalRow";
-import { WarehouseComponent } from "../ReusableComponent/WarehouseComponent";
 import CustomDatepicker from "../Shared/DatePicker/CustomDatepicker";
 import CustomForm from "../Shared/Form/CustomForm";
 import CustomInput from "../Shared/Input/CustomInput";
@@ -28,8 +29,6 @@ import { CurrencyFormComponent } from "./overview/CurrencyComponent";
 import { CustomerComponent } from "./overview/CustomerComponent";
 import { PaymentTypeComponent } from "./overview/PaymentFormComponent";
 import { SaleProductTable } from "./overview/SaleProductTable";
-import { useSetFieldValue } from "../../utilities/lib/updateFormValues/useInitialFormField";
-import dayjs from "dayjs";
 
 const StatusComponent = () => {
   useSetFieldValue("sale_status", saleStatusOptions[0].value);
@@ -159,28 +158,26 @@ export const SaleForm = ({
     setTaxRate(orderTax);
   }, [discount, formValues, shipping_cost, tax_rate, products]);
 
-  console.log(totalItems, totalQty, totalPrice, grandTotal);
-
   return (
     <>
       <CustomForm {...props}>
         <Row {...rowLayout}>
-          <Col {...colLayout}>
+          <Col {...largeLayout}>
             <CustomerComponent />
           </Col>
-          <Col {...colLayout}>
+          {/* <Col {...largeLayout}>
             <WarehouseComponent />
-          </Col>
-          <Col {...colLayout}>
+          </Col> */}
+          <Col {...largeLayout}>
             <CashierComponent />
           </Col>
 
-          <Col {...mdColLayout}>
-            <CurrencyFormComponent />
+          <Col {...largeLayout}>
+            <CustomDatepicker label="Date" required={true} name={"sale_at"} />
           </Col>
 
-          <Col {...mdColLayout}>
-            <CustomDatepicker label="Date" required={true} name={"sale_at"} />
+          <Col {...largeLayout}>
+            <CurrencyFormComponent />
           </Col>
 
           <SaleProductTable

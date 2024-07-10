@@ -63,7 +63,7 @@ export const SaleReport = () => {
       setSelectedRows={setSelectedRows}
       setNewColumns={setNewColumns}
       setParams={setParams}
-      // searchFilterContent={<SearchComponent />}
+      popoverWidth={400}
     >
       <SaleReportTable
         newColumns={newColumns}

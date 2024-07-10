@@ -47,7 +47,7 @@ const TaxList = () => {
       setSelectedRows={setSelectedRows}
       setNewColumns={setNewColumns}
       setParams={setParams}
-      // searchFilterContent={<SearchComponent />}
+      popoverWidth={400}
       api={TAX}
     >
       <TaxCreate />

@@ -1,13 +1,13 @@
 import { Row } from "antd";
 import { useState } from "react";
-import AdjustmentCreate from "../../../components/Adjustment/AdjustmentCreate";
-import AdjustmentTable from "../../../components/Adjustment/AdjustmentTable";
-import { WarehouseFilter } from "../../../components/ReusableComponent/SearchFormComponents/SearchFormComponent";
-import GlobalContainer from "../../../container/GlobalContainer/GlobalContainer";
-import { rowLayout } from "../../../layout/FormLayout";
-import { ADJUSTMENT } from "../../../utilities/apiEndpoints/inventory.api";
-import { useCustomDebounce } from "../../../utilities/hooks/useDebounce";
-import { useFilterParams } from "../../../utilities/hooks/useParams";
+import AdjustmentCreate from "../../components/Adjustment/AdjustmentCreate";
+import AdjustmentTable from "../../components/Adjustment/AdjustmentTable";
+import { WarehouseFilter } from "../../components/ReusableComponent/SearchFormComponents/SearchFormComponent";
+import GlobalContainer from "../../container/GlobalContainer/GlobalContainer";
+import { rowLayout } from "../../layout/FormLayout";
+import { ADJUSTMENT } from "../../utilities/apiEndpoints/inventory.api";
+import { useCustomDebounce } from "../../utilities/hooks/useDebounce";
+import { useFilterParams } from "../../utilities/hooks/useParams";
 
 const columns = [
   {
