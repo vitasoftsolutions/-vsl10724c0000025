@@ -15,11 +15,17 @@ import { TbBrandAirtable } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { SimpleBarChartComponent } from "../../../components/Charts/SimpleBarChart";
 import CustomForm from "../../../components/Shared/Form/CustomForm";
+import CustomSelect from "../../../components/Shared/Select/CustomSelect";
 import { StatisticComponent } from "../../../components/Shared/Statistic/Statistic";
 import CustomTable from "../../../components/Shared/Table/CustomTable";
 import { fullColLayout, rowLayout } from "../../../layout/FormLayout";
 import { useCurrentUser } from "../../../redux/services/auth/authSlice";
 import { useCurrency } from "../../../redux/services/pos/posSlice";
+import { useGetWarehousesQuery } from "../../../redux/services/warehouse/warehouseApi";
+import {
+  DEFAULT_SELECT_VALUES,
+  useGlobalParams,
+} from "../../../utilities/hooks/useParams";
 
 const DashboardCard = ({ title, icon, data, currency }) => {
   return (
@@ -52,16 +58,46 @@ const DashboardCard = ({ title, icon, data, currency }) => {
 const ExtraComponent = () => {
   const [dashboardForm] = Form.useForm();
 
+  const params = useGlobalParams({
+    selectValue: DEFAULT_SELECT_VALUES,
+  });
+
+  const { data, isLoading } = useGetWarehousesQuery({ params });
+
+  const options = data?.results?.warehouse?.map((warehouse) => ({
+    value: warehouse?.id?.toString(),
+    label: warehouse?.name,
+  }));
+
   return (
     <CustomForm form={dashboardForm} submitBtn={false}>
-      <Row {...rowLayout}>
+      <Row
+        {...rowLayout}
+        className="grid grid-cols-1 lg:grid-cols-2 items-center gap-2 lg:gap-0"
+      >
+        <Col {...fullColLayout} className="">
+          {/* <WarehouseComponent label={false} /> */}
+          <CustomSelect
+            showSearch={true}
+            isLoading={isLoading}
+            options={options}
+            placeholder={"Warehouse"}
+            name={"warehouse_ids"}
+            customStyle={true}
+            mode="multiple"
+          />
+        </Col>
         <Col {...fullColLayout} className="">
           <Form.Item name="date_range" noStyle>
             <Segmented
               size="large"
               className="mt-1"
               options={["Daily", "Weekly", "Monthly", "Quarterly", "Yearly"]}
-              style={{}}
+              style={
+                {
+                  // backgroundColor: "white",
+                }
+              }
             />
           </Form.Item>
         </Col>
@@ -158,13 +194,13 @@ const WarehouseStatistic = () => {
 
   return (
     <div className="space-y-3">
-      <span className="font-semibold text-lg">Inventory</span>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-        {/* <DashboardCard
+      <span className="font-semibold text-lg">Warehouse</span>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <DashboardCard
           title={"Warehouse"}
           icon={<PiWarehouse {...iconProps} />}
           data={"N/A"}
-        /> */}
+        />{" "}
         <DashboardCard
           title={"Product"}
           icon={<MdAddShoppingCart {...iconProps} />}

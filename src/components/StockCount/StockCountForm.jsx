@@ -1,9 +1,13 @@
 import { Col, Row } from "antd";
-import { useEffect } from "react";
-import { fullColLayout, rowLayout } from "../../layout/FormLayout";
+import { mdColLayout, rowLayout } from "../../layout/FormLayout";
+import { useGetWarehousesQuery } from "../../redux/services/warehouse/warehouseApi";
 import CustomForm from "../Shared/Form/CustomForm";
 import CustomSelect from "../Shared/Select/CustomSelect";
 import PartialForm from "./PartialForm";
+import {
+  DEFAULT_SELECT_VALUES,
+  useGlobalParams,
+} from "../../utilities/hooks/useParams";
 
 const options = [
   {
@@ -19,18 +23,35 @@ const options = [
 ];
 
 const StockCountForm = (props) => {
-  const form = props.form;
+  const params = useGlobalParams({
+    selectValue: DEFAULT_SELECT_VALUES,
+  });
 
-  useEffect(() => {
-    if (!form?.getFieldValue("type")) {
-      form.setFieldValue("type", "Full");
-    }
-  }, [form]);
+  const { data, isLoading } = useGetWarehousesQuery({
+    params,
+  });
+
+  const warehouseOptions = data?.results?.warehouse?.map((warehouse) => ({
+    value: warehouse.id?.toString(),
+    label: warehouse.name,
+  }));
 
   return (
     <CustomForm {...props}>
       <Row {...rowLayout}>
-        <Col {...fullColLayout}>
+        <Col {...mdColLayout}>
+          <CustomSelect
+            label="Warehouse"
+            type={"text"}
+            required={true}
+            options={warehouseOptions}
+            isLoading={isLoading}
+            showSearch={true}
+            mode="multiple"
+            name="warehouse_ids"
+          />
+        </Col>
+        <Col {...mdColLayout}>
           <CustomSelect
             label="Type"
             options={options}

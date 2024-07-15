@@ -8,6 +8,7 @@ import {
   ProductFilter,
   SaleStatusFilter,
   SupplierFilter,
+  WarehouseFilter,
 } from "../../../components/ReusableComponent/SearchFormComponents/SearchFormComponent";
 import GlobalContainer from "../../../container/GlobalContainer/GlobalContainer";
 import { rowLayout } from "../../../layout/FormLayout";
@@ -27,16 +28,16 @@ const columns = [
       </span>
     ),
   },
-  // {
-  //   title: "Warehouse",
-  //   dataIndex: "warehouse",
-  //   key: "warehouse",
-  //   render: (warehouse) => (
-  //     <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
-  //       {warehouse ?? "N/A"}
-  //     </span>
-  //   ),
-  // },
+  {
+    title: "Warehouse",
+    dataIndex: "warehouse",
+    key: "warehouse",
+    render: (warehouse) => (
+      <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
+        {warehouse ?? "N/A"}
+      </span>
+    ),
+  },
   {
     title: "Cashier",
     dataIndex: "cashier",
@@ -93,7 +94,7 @@ const columns = [
 const SearchComponent = () => {
   return (
     <Row {...rowLayout}>
-      {/* <WarehouseFilter /> */}
+      <WarehouseFilter />
       <CashierFilter />
       <SupplierFilter />
       <CustomerFilter />

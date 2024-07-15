@@ -15,7 +15,7 @@ const adjustmentApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: ADJUSTMENT, params },
+        { type: ADJUSTMENT, ...params },
         ADJUSTMENT,
       ],
     }),
@@ -53,7 +53,7 @@ const adjustmentApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ADJUSTMENT] : [];
+        return result ? [{ type: ADJUSTMENT }] : [];
       },
     }),
 
@@ -78,7 +78,7 @@ const adjustmentApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ADJUSTMENT] : [];
+        return result ? [{ type: ADJUSTMENT }] : [];
       },
     }),
 
@@ -102,7 +102,7 @@ const adjustmentApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ADJUSTMENT] : [];
+        return result ? [{ type: ADJUSTMENT }] : [];
       },
     }),
 
@@ -126,7 +126,7 @@ const adjustmentApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ADJUSTMENT] : [];
+        return result ? [{ type: ADJUSTMENT }] : [];
       },
     }),
   }),

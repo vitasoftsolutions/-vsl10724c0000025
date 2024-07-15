@@ -27,16 +27,16 @@ const columns = [
       </span>
     ),
   },
-  // {
-  //   title: "Warehouse",
-  //   dataIndex: "warehouse",
-  //   key: "warehouse",
-  //   render: (warehouse) => (
-  //     <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
-  //       {warehouse}
-  //     </span>
-  //   ),
-  // },
+  {
+    title: "Warehouse",
+    dataIndex: "warehouse",
+    key: "warehouse",
+    render: (warehouse) => (
+      <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
+        {warehouse}
+      </span>
+    ),
+  },
   {
     title: "Cash in Hand",
     dataIndex: "cash_in_hand",
@@ -87,7 +87,7 @@ export const PettyCash = () => {
       setSelectedRows={setSelectedRows}
       setNewColumns={setNewColumns}
       setParams={setParams}
-      popoverWidth={400}
+      // searchFilterContent={<SearchComponent />}
       api={PETTY_CASH}
     >
       <PettyCashTable

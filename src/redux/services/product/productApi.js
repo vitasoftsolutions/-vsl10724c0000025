@@ -15,7 +15,7 @@ const productApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: PRODUCT, params },
+        { type: PRODUCT, ...params },
         PRODUCT,
       ],
     }),
@@ -52,6 +52,9 @@ const productApi = baseApi.injectEndpoints({
           return response;
         }
       },
+      invalidatesTags: (result) => {
+        return result ? [{ type: PRODUCT }] : [];
+      },
     }),
 
     updateProduct: build.mutation({
@@ -75,7 +78,7 @@ const productApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PRODUCT] : [];
+        return result ? [{ type: PRODUCT }] : [];
       },
     }),
 
@@ -99,7 +102,7 @@ const productApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PRODUCT] : [];
+        return result ? [{ type: PRODUCT }] : [];
       },
     }),
 
@@ -123,7 +126,7 @@ const productApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PRODUCT] : [];
+        return result ? [{ type: PRODUCT }] : [];
       },
     }),
   }),

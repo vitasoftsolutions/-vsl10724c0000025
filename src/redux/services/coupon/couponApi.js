@@ -14,7 +14,7 @@ const couponApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: COUPON, params },
+        { type: COUPON, ...params },
         COUPON,
       ],
     }),
@@ -51,7 +51,7 @@ const couponApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [COUPON] : [];
+        return result ? [{ type: COUPON }] : [];
       },
     }),
 
@@ -76,7 +76,7 @@ const couponApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [COUPON] : [];
+        return result ? [{ type: COUPON }] : [];
       },
     }),
 
@@ -100,7 +100,7 @@ const couponApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [COUPON] : [];
+        return result ? [{ type: COUPON }] : [];
       },
     }),
 
@@ -124,7 +124,7 @@ const couponApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [COUPON] : [];
+        return result ? [{ type: COUPON }] : [];
       },
     }),
   }),

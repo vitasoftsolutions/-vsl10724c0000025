@@ -14,7 +14,7 @@ const employeeApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: EMPLOYEE, params },
+        { type: EMPLOYEE, ...params },
         EMPLOYEE,
       ],
     }),
@@ -52,7 +52,7 @@ const employeeApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EMPLOYEE] : [];
+        return result ? [{ type: EMPLOYEE }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const employeeApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EMPLOYEE] : [];
+        return result ? [{ type: EMPLOYEE }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const employeeApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EMPLOYEE] : [];
+        return result ? [{ type: EMPLOYEE }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const employeeApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EMPLOYEE] : [];
+        return result ? [{ type: EMPLOYEE }] : [];
       },
     }),
 

@@ -17,6 +17,7 @@ import developerSlice from "./services/developer/developerSlice";
 import drawerSlice from "./services/drawer/drawerSlice";
 import loaderSlice from "./services/loader/loaderSlice";
 import menuSlice from "./services/menu/menuSlice";
+import notificationSlice from "./services/notification/notificationSlice";
 import paginationSlice from "./services/pagination/paginationSlice";
 import paramSlice from "./services/paramSlice/paramSlice";
 import pettyCashSlice from "./services/pettycash/pettyCashSlice";
@@ -25,19 +26,16 @@ import productSlice from "./services/product/productSlice";
 import themeSlice from "./services/theme/themeSlice";
 
 const persistConfig = {
-  key: ["auth", "theme", "developer", "menu", "pettycash"],
+  key: ["auth", "theme", "developer", "menu", "pettycash", "notification"],
   storage,
 };
 
 const persistedAuthReducer = persistReducer(persistConfig, authSlice);
-
 const persistedThemeReducer = persistReducer(persistConfig, themeSlice);
-
 const persistedMenuItems = persistReducer(persistConfig, menuSlice);
-
-const persistedDeveloperReducer = persistReducer(persistConfig, developerSlice);
-
+const persistedNotification = persistReducer(persistConfig, notificationSlice);
 const persistedPosReducer = persistReducer(persistConfig, posSlice);
+const persistedDeveloperReducer = persistReducer(persistConfig, developerSlice);
 
 // const persistedPaginationReducer = persistReducer(
 //   persistConfig,
@@ -54,15 +52,16 @@ export const store = configureStore({
     auth: persistedAuthReducer,
     theme: persistedThemeReducer,
     menu: persistedMenuItems,
+    notification: persistedNotification,
+    pos: persistedPosReducer,
+    developer: persistedDeveloperReducer,
     param: paramSlice,
     loader: loaderSlice,
-    developer: persistedDeveloperReducer,
     pagination: paginationSlice,
     cashRegister: persistedCashRegister,
     pettyCash: persistePettyCash,
     drawer: drawerSlice,
     product: productSlice,
-    pos: persistedPosReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

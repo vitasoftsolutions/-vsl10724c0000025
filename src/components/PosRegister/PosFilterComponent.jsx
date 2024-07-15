@@ -1,13 +1,10 @@
-import { Button } from "antd";
+import { Button, theme } from "antd";
 import { useState } from "react";
 import CustomDrawer from "../Shared/Drawer/CustomDrawer";
 import { Brands } from "./Brand/Brands";
 import { Categories } from "./Categories/Categories";
-// import CustomDrawer from "../Shared/Drawer/CustomDrawer";
-// import { Categories } from "./Categories/Categories";
-// import { Brands } from "./Brand/Brands";
 
-const CategoryFilterComponent = ({ setParams }) => {
+const CategoryFilterComponent = ({ setParams, color }) => {
   const [isFilterDraweropen, setIsFilterDrawerOpen] = useState(false);
 
   const handleOpenDrawer = () => {
@@ -18,32 +15,25 @@ const CategoryFilterComponent = ({ setParams }) => {
     setIsFilterDrawerOpen(false);
   };
 
-  const handleSubmit = async (values) => {
-    // const params = {
-    //   ...pagination,
-    //   ...values,
-    // };
-    // setPagination(params);
+  const [isSelected, setIsSelected] = useState([]);
 
-    const category_ids = Object.keys(values).map((key) => {
-      if (values[key]) {
-        return key;
-      }
-    });
+  const handleCardSelect = (id) => {
+    if (isSelected.includes(id)) {
+      setIsSelected(isSelected.filter((item) => item !== id));
+    } else {
+      setIsSelected([...isSelected, id]);
+    }
+  };
 
-    setParams({ category_ids });
-
+  const handleSubmit = async () => {
+    // console.log(isSelected);
+    setParams({ category_ids: isSelected });
     handleCloseDrawer();
   };
 
   return (
     <>
-      <Button
-        type="primary"
-        // size="large"
-        className="w-full"
-        onClick={handleOpenDrawer}
-      >
+      <Button type="primary" className="w-full" onClick={handleOpenDrawer}>
         Category
       </Button>
 
@@ -51,14 +41,21 @@ const CategoryFilterComponent = ({ setParams }) => {
         title={"Choose Category"}
         open={isFilterDraweropen}
         onClose={handleCloseDrawer}
+        width={1400}
       >
-        <Categories handleSubmit={handleSubmit} onClose={handleCloseDrawer} />
+        <Categories
+          color={color}
+          handleSubmit={handleSubmit}
+          isSelected={isSelected}
+          handleCardSelect={handleCardSelect}
+          onClose={handleCloseDrawer}
+        />
       </CustomDrawer>
     </>
   );
 };
 
-const BrandFilterComponent = ({ setParams }) => {
+const BrandFilterComponent = ({ setParams, color }) => {
   const [isFilterDraweropen, setIsFilterDrawerOpen] = useState(false);
 
   const handleOpenDrawer = () => {
@@ -69,46 +66,55 @@ const BrandFilterComponent = ({ setParams }) => {
     setIsFilterDrawerOpen(false);
   };
 
-  const handleSubmit = async (values) => {
-    const brand_ids = Object.keys(values).map((key) => {
-      if (values[key]) {
-        return key;
-      }
-    });
+  const [isSelected, setIsSelected] = useState([]);
 
-    setParams({ brand_ids });
+  const handleCardSelect = (id) => {
+    if (isSelected.includes(id)) {
+      setIsSelected(isSelected.filter((item) => item !== id));
+    } else {
+      setIsSelected([...isSelected, id]);
+    }
+  };
+
+  const handleSubmit = async () => {
+    setParams({ brand_ids: isSelected });
 
     handleCloseDrawer();
   };
 
   return (
     <>
-      <Button
-        type="primary"
-        // size="large"
-        className="w-full"
-        onClick={handleOpenDrawer}
-      >
+      <Button type="primary" className="w-full" onClick={handleOpenDrawer}>
         Brand
       </Button>
 
       <CustomDrawer
         title={"Choose Brand"}
         open={isFilterDraweropen}
+        width={1400}
         onClose={handleCloseDrawer}
       >
-        <Brands handleSubmit={handleSubmit} onClose={handleCloseDrawer} />
+        <Brands
+          color={color}
+          handleSubmit={handleSubmit}
+          isSelected={isSelected}
+          handleCardSelect={handleCardSelect}
+          onClose={handleCloseDrawer}
+        />
       </CustomDrawer>
     </>
   );
 };
 
 const PosFilterComponent = ({ setParams }) => {
+  const { token } = theme.useToken();
+
+  const color = token.colorPrimary;
+
   return (
     <div className="grid grid-cols-2 gap-3 px-4 pt-5">
-      <CategoryFilterComponent setParams={setParams} />
-
-      <BrandFilterComponent setParams={setParams} />
+      <CategoryFilterComponent setParams={setParams} color={color} />
+      <BrandFilterComponent setParams={setParams} color={color} />
     </div>
   );
 };

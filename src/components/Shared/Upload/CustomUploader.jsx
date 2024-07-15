@@ -25,6 +25,7 @@ const CustomUploader = ({
   label,
   required = false,
   multiple = false,
+  type,
 }) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -88,6 +89,7 @@ const CustomUploader = ({
               ? "custom-upload border border-gray-400 rounded-md pt-2 pl-2 pr-2 pb-2"
               : "custom-single-upload"
           } mt-2`}
+          accept={type === "img" && ".png, .jpg, .jpeg"}
         >
           {(multiple || (!multiple && fileList.length < 1)) && (
             <button

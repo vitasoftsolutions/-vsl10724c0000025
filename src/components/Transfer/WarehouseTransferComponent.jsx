@@ -1,5 +1,5 @@
 import { Col, Form } from "antd";
-import { largeLayout } from "../../layout/FormLayout";
+import { largeLayout, mdColLayout } from "../../layout/FormLayout";
 import { useGetWarehousesQuery } from "../../redux/services/warehouse/warehouseApi";
 import {
   DEFAULT_SELECT_VALUES,
@@ -8,7 +8,7 @@ import {
 import { useInitialFormField } from "../../utilities/lib/updateFormValues/useInitialFormField";
 import CustomSelect from "../Shared/Select/CustomSelect";
 
-export const WarehouseTransferComponent = () => {
+export const WarehouseTransferComponent = ({ fullLayout = false }) => {
   const form = Form.useFormInstance();
 
   const warehouseFrom = Form.useWatch("from_warehouse_id", form);
@@ -34,7 +34,7 @@ export const WarehouseTransferComponent = () => {
 
   return (
     <>
-      <Col {...largeLayout}>
+      <Col {...(fullLayout ? mdColLayout : largeLayout)}>
         <CustomSelect
           label="Warehouse (From)"
           placeholder={"Warehouse (From)"}
@@ -45,7 +45,7 @@ export const WarehouseTransferComponent = () => {
           required={true}
         />
       </Col>
-      <Col {...largeLayout}>
+      <Col {...(fullLayout ? mdColLayout : largeLayout)}>
         <CustomSelect
           label="Warehouse (To)"
           placeholder={"Warehouse (To)"}

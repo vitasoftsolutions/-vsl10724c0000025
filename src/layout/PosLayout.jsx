@@ -2,8 +2,7 @@ import { Button, Form, Layout, Tag } from "antd";
 import dayjs from "dayjs";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Logo from "../components/AllSection/Header/Logo";
 import Profile from "../components/AllSection/Header/Profile";
 import Payment from "../components/PosRegister/Payment";
@@ -29,7 +28,6 @@ const { Footer } = Layout;
 const PosLayout = () => {
   const [posForm] = Form.useForm();
   const [errorFields, setErrorFields] = useState([]);
-  // const { pettyCash } = useSelector((state) => state.pettyCash);
 
   const dispatch = useDispatch();
 
@@ -208,12 +206,6 @@ const PosLayout = () => {
       posForm.resetFields();
     }
   };
-
-  // const navigate = useNavigate();
-
-  // if (pettyCash === "Close") {
-  //   navigate("/dashboard");
-  // }
 
   return (
     <GlobalUtilityStyle>

@@ -10,9 +10,9 @@ import {
   Row,
   theme,
 } from "antd";
-import { useState } from "react";
-import { FaCashRegister } from "react-icons/fa";
-import { GoBell } from "react-icons/go";
+import { useEffect, useState } from "react";
+import { FaBell, FaCashRegister } from "react-icons/fa";
+import { IoSettingsOutline } from "react-icons/io5";
 import { MdPointOfSale } from "react-icons/md";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,39 +20,81 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { GlobalUtilityStyle } from "../../../container/Styled";
 import { fullColLayout, rowLayout } from "../../../layout/FormLayout";
 import { logout, useCurrentUser } from "../../../redux/services/auth/authSlice";
-import { useCreatePettyCashMutation } from "../../../redux/services/pettycash/pettyCashApi";
-import { setPettyCash } from "../../../redux/services/pettycash/pettyCashSlice";
+import {
+  useCheckPettyCashQuery,
+  useCreatePettyCashMutation,
+  useUpdatePettyCashMutation,
+} from "../../../redux/services/pettycash/pettyCashApi";
+import {
+  clearPettyCash,
+  setPettyCash,
+} from "../../../redux/services/pettycash/pettyCashSlice";
 import { openNotification } from "../../../utilities/lib/openToaster";
 import CustomInput from "../../Shared/Input/CustomInput";
 
 const PettyCashOpenComponent = ({ navigate, open, setOpen }) => {
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const [errorFields, setErrorFields] = useState([]);
 
+  const { pettyCashId } = useSelector((state) => state.pettyCash);
+
   const [createPettyCash, { isLoading }] = useCreatePettyCashMutation();
+
+  const [updatePettyCash, { isLoading: isUpdating }] =
+    useUpdatePettyCashMutation();
 
   const user = useSelector(useCurrentUser);
 
   const handleSubmit = async (values) => {
-    const { data, error } = await createPettyCash({
-      data: { ...values, warehouse_id: user?.warehouse_id, status: "Open" },
-    });
+    if (pettyCashId) {
+      const { data, error } = await updatePettyCash({
+        id: pettyCashId,
+        data: {
+          warehouse_id: user?.warehouse_id,
+          status: "Open",
+          _method: "PUT",
+        },
+      });
 
-    if (data?.success) {
-      dispatch(setPettyCash("Open"));
-      hideModal();
-      form.resetFields();
-      navigate("/pos");
-    }
+      if (data?.success) {
+        dispatch(setPettyCash({ status: "Open", id: data?.data?.id }));
+        hideModal();
+        form.resetFields();
+        navigate("/pos");
+      }
 
-    if (error) {
-      const errorFields = Object.keys(error?.data?.errors).map((fieldName) => ({
-        name: fieldName,
-        errors: error?.data?.errors[fieldName],
-      }));
-      setErrorFields(errorFields);
+      if (error) {
+        const errorFields = Object.keys(error?.data?.errors).map(
+          (fieldName) => ({
+            name: fieldName,
+            errors: error?.data?.errors[fieldName],
+          })
+        );
+        setErrorFields(errorFields);
+      }
+    } else {
+      const { data, error } = await createPettyCash({
+        data: { ...values, warehouse_id: user?.warehouse_id, status: "Open" },
+      });
+
+      if (data?.success) {
+        dispatch(setPettyCash({ status: "Open", id: data?.data?.id }));
+        hideModal();
+        form.resetFields();
+        navigate("/pos");
+      }
+
+      if (error) {
+        const errorFields = Object.keys(error?.data?.errors).map(
+          (fieldName) => ({
+            name: fieldName,
+            errors: error?.data?.errors[fieldName],
+          })
+        );
+        setErrorFields(errorFields);
+      }
     }
   };
 
@@ -95,7 +137,11 @@ const PettyCashOpenComponent = ({ navigate, open, setOpen }) => {
           <Button type="default" onClick={hideModal}>
             Cancel
           </Button>
-          <Button htmlType="submit" type="primary" loading={isLoading}>
+          <Button
+            htmlType="submit"
+            type="primary"
+            loading={isLoading || isUpdating}
+          >
             Save
           </Button>
         </div>
@@ -106,9 +152,36 @@ const PettyCashOpenComponent = ({ navigate, open, setOpen }) => {
 
 const PosComponent = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { pettyCash } = useSelector((state) => state.pettyCash);
+  const user = useSelector(useCurrentUser);
 
-  // console.log(pettyCash);
+  const { data: pettyCashData } = useCheckPettyCashQuery(
+    {
+      params: {
+        warehouse_id: parseInt(user?.warehouse_id),
+      },
+    },
+    {
+      skip: !user?.warehouse_id,
+    }
+  );
+
+  useEffect(() => {
+    if (pettyCashData?.data) {
+      if (pettyCashData?.data?.status === "Open") {
+        console.log("first");
+        dispatch(setPettyCash({ status: "Open", id: pettyCashData?.data?.id }));
+      } else if (
+        pettyCashData?.data?.status === "Close" &&
+        !pettyCashData?.data?.id
+      ) {
+        dispatch(setPettyCash({ status: "Close", id: undefined }));
+      } else {
+        dispatch(clearPettyCash());
+      }
+    }
+  }, [pettyCashData?.data, dispatch, pettyCash?.data?.status]);
 
   const [open, setOpen] = useState(false);
 
@@ -122,8 +195,7 @@ const PosComponent = () => {
     <GlobalUtilityStyle>
       <Button
         icon={<MdPointOfSale size={18} />}
-        className="flex justify-center items-center gap-1 shadow-md"
-        // size="large"
+        className="flex justify-center items-center gap-1 shadow-sm"
         onClick={posRegister}
       >
         POS
@@ -138,15 +210,19 @@ const PosComponent = () => {
   );
 };
 
-const CashRegisterComponent = () => {
+const CloseCashRegister = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+
+  const { token } = theme.useToken();
   const { pathname } = location;
 
-  const [createPettyCash, { isLoading }] = useCreatePettyCashMutation();
+  const [updatePettyCash, { isLoading }] = useUpdatePettyCashMutation();
 
   const [open, setOpen] = useState(false);
+
+  const { pettyCashId } = useSelector((state) => state.pettyCash);
 
   const handleCashRegister = () => {
     if (pathname.includes("/pos")) {
@@ -160,12 +236,17 @@ const CashRegisterComponent = () => {
   const user = useSelector(useCurrentUser);
 
   const closeCashRegister = async () => {
-    const { data } = await createPettyCash({
-      data: { warehouse_id: user?.warehouse_id, status: "Close" },
+    const { data } = await updatePettyCash({
+      id: pettyCashId,
+      data: {
+        warehouse_id: user?.warehouse_id,
+        status: "Close",
+        _method: "PUT",
+      },
     });
 
     if (data?.success) {
-      dispatch(setPettyCash("Close"));
+      dispatch(clearPettyCash());
 
       hideModal();
       navigate("/dashboard");
@@ -178,11 +259,18 @@ const CashRegisterComponent = () => {
 
   return (
     <>
-      <Button
-        icon={<FaCashRegister size={18} />}
-        className="flex justify-center items-center gap-1 shadow-md"
+      <div
         onClick={handleCashRegister}
-      />
+        className="flex justify-center items-center"
+      >
+        <FaCashRegister
+          size={24}
+          style={{
+            color: token.colorPrimary,
+          }}
+          className="hover:cursor-pointer hover:shadow-lg"
+        />
+      </div>
 
       <Modal
         title={
@@ -229,6 +317,17 @@ const NotificationComponent = () => {
 
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
+  // const user = useSelector(useCurrentUser);
+
+  // const { data } = useGetAllNotificationQuery(
+  //   {
+  //     params: { warehouse_id: user?.warehouse_id },
+  //   },
+  //   { skip: !user?.warehouse_id }
+  // );
+
+  // console.log(data);
+
   const handleNotification = () => {
     setIsPopoverOpen(true);
   };
@@ -247,7 +346,6 @@ const NotificationComponent = () => {
       overlayClassName="rounded-md shadow-xl "
       overlayStyle={{ width: 300 }}
       overlayInnerStyle={{
-        backgroundColor: "#F8FAFC",
         maxHeight: "85vh",
         overflowY: "auto",
       }}
@@ -255,17 +353,20 @@ const NotificationComponent = () => {
       open={isPopoverOpen}
       arrow={false}
     >
-      <Button className="rounded-md shadow-md" onClick={handleNotification}>
+      <div
+        onClick={handleNotification}
+        className="flex justify-center items-center"
+      >
         <Badge dot={show}>
-          <GoBell
-            size={20}
+          <FaBell
+            size={24}
             style={{
               color: token.colorPrimary,
             }}
-            className="hover:cursor-pointer"
+            className="hover:cursor-pointer "
           />
         </Badge>
-      </Button>
+      </div>
     </Popover>
   );
 };
@@ -284,34 +385,47 @@ const Profile = () => {
   const user = useSelector(useCurrentUser);
 
   const { token } = theme.useToken();
+  const navigate = useNavigate();
 
   const content = (
-    <div className="space-y-5 ">
-      <div className="p-3 bg-[#F5F5F5]  rounded-md">
-        <div className="flex gap-3 items-center text-lg">
-          <Avatar
-            className="avatar-bg shadow-md hover:shadow-lg"
-            size={40}
-            icon={<UserOutlined />}
-          />
-          <div className="flex flex-col font-semibold">
-            <span>{user?.employees?.name}</span>
-            <span
-              className={`text-sm `}
-              style={{
-                color: token.colorPrimary,
-              }}
-            >
-              {user?.employees?.email}
-            </span>
+    <div>
+      <div className="">
+        <div className="py-3 rounded-md px-2">
+          <div className="flex gap-4 items-center text-lg">
+            <Avatar
+              className="avatar-bg shadow-md hover:shadow-lg"
+              size={44}
+              icon={<UserOutlined />}
+            />
+            <div className="flex flex-col font-normal">
+              <span className="font-bold">{user?.employees?.name}</span>
+              <span
+                className={`text-sm `}
+                style={{
+                  color: token.colorPrimary,
+                }}
+              >
+                {user?.employees?.email}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="py-2 px-4 bg-[#F5F5F5] rounded-md">
+          <div
+            className="flex gap-2 items-center text-lg  hover:underline profile-ul w-max"
+            onClick={() => navigate("/settings/general-settings")}
+          >
+            <IoSettingsOutline size={18} />
+            <div className="flex flex-col font-semibold text-[15px]">
+              <span className="">General Settings</span>
+            </div>
           </div>
         </div>
       </div>
-      {/* <hr className="my-2" />
-      <div className="text-lg">User Profile</div>
-      <hr className="my-2" /> */}
-      <div className="flex w-full justify-end">
-        <Button onClick={handleLogout} className={`w-full `}>
+
+      <div className="flex w-full justify-end pt-3">
+        <Button onClick={handleLogout} className={`w-full`} size="large">
           Log Out
         </Button>
       </div>
@@ -319,7 +433,7 @@ const Profile = () => {
   );
 
   return (
-    <div className=" flex justify-center items-center gap-3">
+    <div className=" flex justify-center items-center gap-5">
       {/* <CreateComponent /> */}
       {!pathname.includes("/pos") && (
         <>
@@ -327,7 +441,7 @@ const Profile = () => {
         </>
       )}
 
-      <CashRegisterComponent />
+      <CloseCashRegister />
 
       <NotificationComponent />
       <Popover
@@ -348,7 +462,6 @@ const Profile = () => {
         />
       </Popover>
     </div>
-    // <div></div>
   );
 };
 

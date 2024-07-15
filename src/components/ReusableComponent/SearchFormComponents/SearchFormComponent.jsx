@@ -177,7 +177,11 @@ export const SupplierFilter = ({ multiple = true, fullLayout = false }) => {
   );
 };
 
-export const ProductFilter = ({ name = "product_ids" }) => {
+export const ProductFilter = ({
+  name = "product_ids",
+  fullLayout = false,
+  multiple = true,
+}) => {
   const params = useGlobalParams({
     selectValue: DEFAULT_SELECT_VALUES,
   });
@@ -190,13 +194,14 @@ export const ProductFilter = ({ name = "product_ids" }) => {
   }));
 
   return (
-    <Col {...mdColLayout}>
+    <Col {...(fullLayout ? fullColLayout : mdColLayout)}>
       <CustomSelect
         {...commonProps}
         label="Product"
         name={name}
         options={options}
         isLoading={isLoading}
+        mode={multiple && "multiple"}
       />
     </Col>
   );

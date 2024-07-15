@@ -1,9 +1,9 @@
 import { Col, Form, Row } from "antd";
 import { useEffect } from "react";
 import { fullColLayout, rowLayout } from "../../layout/FormLayout";
-import { WarehouseComponent } from "../ReusableComponent/WarehouseComponent";
 import CustomForm from "../Shared/Form/CustomForm";
 import CustomInput from "../Shared/Input/CustomInput";
+import { WarehouseTransferComponent } from "../Transfer/WarehouseTransferComponent";
 import { RequestProductTable } from "./RequestProductTable";
 
 export const StockRequestForm = ({
@@ -17,7 +17,7 @@ export const StockRequestForm = ({
 
   useEffect(() => {
     if (warehouseId) {
-      setFormValues({ product_list: { qty: {} } });
+      setFormValues({ product_list: { qty: {}, min_qty: {} } });
       setProducts([]);
     }
   }, [setFormValues, setProducts, warehouseId]);
@@ -25,9 +25,14 @@ export const StockRequestForm = ({
   return (
     <CustomForm {...props}>
       <Row {...rowLayout}>
-        <Col {...fullColLayout}>
-          <WarehouseComponent />
+        {/* <Col {...mdColLayout}>
+          <WarehouseComponent name="from_warehouse_id" title="From Warehouse" />
         </Col>
+        <Col {...mdColLayout}>
+          <WarehouseComponent name="to_warehouse_id" title="To Warehouse" />
+        </Col> */}
+
+        <WarehouseTransferComponent fullLayout={true} />
 
         <RequestProductTable
           formValues={formValues}

@@ -15,7 +15,7 @@ const warehouseApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: WAREHOUSE, params },
+        { type: WAREHOUSE, ...params },
         WAREHOUSE,
       ],
     }),
@@ -64,7 +64,7 @@ const warehouseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [WAREHOUSE] : [];
+        return result ? [{ type: WAREHOUSE }] : [];
       },
     }),
 
@@ -89,7 +89,7 @@ const warehouseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [WAREHOUSE] : [];
+        return result ? [{ type: WAREHOUSE }] : [];
       },
     }),
 
@@ -113,7 +113,7 @@ const warehouseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [WAREHOUSE] : [];
+        return result ? [{ type: WAREHOUSE }] : [];
       },
     }),
 
@@ -137,7 +137,7 @@ const warehouseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [WAREHOUSE] : [];
+        return result ? [{ type: WAREHOUSE }] : [];
       },
     }),
   }),

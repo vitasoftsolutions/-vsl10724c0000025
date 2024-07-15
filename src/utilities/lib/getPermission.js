@@ -64,7 +64,32 @@ export const useMenuItems = (adminPaths) => {
   const userData = useSelector(useCurrentUser);
   const rolePermissions = userData?.roles?.[0]?.permissions || [];
 
-  const uniqueItems = getMenuItems(rolePermissions);
+  const actionKyes = [
+    "accesstoken.issueToken",
+    "authorization.authorize",
+    "transienttoken.refresh",
+    "approveauthorization.approve",
+    "denyauthorization.deny",
+    "authorizedaccesstoken.forUser",
+    "authorizedaccesstoken.destroy",
+    "client.forUser",
+    "scope.all",
+    "personalaccesstoken.forUser",
+    "personalaccesstoken.store",
+    "personalaccesstoken.destroy",
+    "csrfcookie.show",
+    "handlerequests.handleUpdate",
+    "frontendassets.returnJavaScriptAsFile",
+    "frontendassets.maps",
+    "fileupload.handle",
+    "filepreview.handle",
+  ];
+
+  const filteredRolePermissions = rolePermissions.filter(
+    (permission) => !actionKyes.includes(permission)
+  );
+
+  const uniqueItems = getMenuItems(filteredRolePermissions);
 
   // console.log(uniqueItems);
 

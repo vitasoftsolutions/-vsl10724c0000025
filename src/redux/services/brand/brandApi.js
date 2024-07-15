@@ -15,7 +15,7 @@ const brandApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: BRAND, params },
+        { type: BRAND, ...params },
         BRAND,
       ],
     }),
@@ -54,7 +54,7 @@ const brandApi = baseApi.injectEndpoints({
       },
 
       invalidatesTags: (result) => {
-        return result ? [BRAND] : [];
+        return result ? [{ type: BRAND }] : [];
       },
     }),
 
@@ -79,7 +79,7 @@ const brandApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [BRAND] : [];
+        return result ? [{ type: BRAND }] : [];
       },
     }),
     updateBrandStatus: build.mutation({
@@ -102,7 +102,7 @@ const brandApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [BRAND] : [];
+        return result ? [{ type: BRAND }] : [];
       },
     }),
     deleteBrand: build.mutation({
@@ -125,7 +125,7 @@ const brandApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [BRAND] : [];
+        return result ? [{ type: BRAND }] : [];
       },
     }),
     exportBrand: build.mutation({

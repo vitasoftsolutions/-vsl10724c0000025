@@ -41,7 +41,6 @@ export const PurchaseCreate = () => {
       total: {},
 
       tax_id: {},
-      inclusive_tax_rate: {},
     },
   });
 
@@ -175,7 +174,6 @@ export const PurchaseCreate = () => {
           total: {},
 
           tax_id: {},
-          inclusive_tax_rate: {},
         },
       });
 
@@ -184,7 +182,6 @@ export const PurchaseCreate = () => {
       setProductUnits({
         purchase_units: {},
         tax_rate: {},
-        // inclusive_tax_rate: {},
       });
     }
     if (error) {

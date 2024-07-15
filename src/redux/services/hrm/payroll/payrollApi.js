@@ -14,7 +14,7 @@ const payrollApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: PAYROLL, params },
+        { type: PAYROLL, ...params },
         PAYROLL,
       ],
     }),
@@ -52,7 +52,7 @@ const payrollApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PAYROLL] : [];
+        return result ? [{ type: PAYROLL }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const payrollApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PAYROLL] : [];
+        return result ? [{ type: PAYROLL }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const payrollApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PAYROLL] : [];
+        return result ? [{ type: PAYROLL }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const payrollApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PAYROLL] : [];
+        return result ? [{ type: PAYROLL }] : [];
       },
     }),
 

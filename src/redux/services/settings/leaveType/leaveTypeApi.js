@@ -14,7 +14,7 @@ const leaveType = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: LEAVE_TYPE, params },
+        { type: LEAVE_TYPE, ...params },
         LEAVE_TYPE,
       ],
     }),
@@ -52,7 +52,7 @@ const leaveType = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [LEAVE_TYPE] : [];
+        return result ? [{ type: LEAVE_TYPE }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const leaveType = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [LEAVE_TYPE] : [];
+        return result ? [{ type: LEAVE_TYPE }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const leaveType = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [LEAVE_TYPE] : [];
+        return result ? [{ type: LEAVE_TYPE }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const leaveType = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [LEAVE_TYPE] : [];
+        return result ? [{ type: LEAVE_TYPE }] : [];
       },
     }),
 

@@ -14,7 +14,7 @@ const holidayApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: HOLIDAY, params },
+        { type: HOLIDAY, ...params },
         HOLIDAY,
       ],
     }),
@@ -52,7 +52,7 @@ const holidayApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [HOLIDAY] : [];
+        return result ? [{ type: HOLIDAY }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const holidayApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [HOLIDAY] : [];
+        return result ? [{ type: HOLIDAY }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const holidayApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [HOLIDAY] : [];
+        return result ? [{ type: HOLIDAY }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const holidayApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [HOLIDAY] : [];
+        return result ? [{ type: HOLIDAY }] : [];
       },
     }),
 

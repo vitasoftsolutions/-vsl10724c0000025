@@ -1,5 +1,10 @@
 import { IoCalendarNumberOutline } from "react-icons/io5";
-import { TbBrandGoogleAnalytics, TbReportAnalytics } from "react-icons/tb";
+import {
+  TbAlertSquare,
+  TbBrandGoogleAnalytics,
+  TbReportAnalytics,
+} from "react-icons/tb";
+import { AlertProductReport } from "../../pages/Dashboard/Reports/AlertProductReport";
 import { CustomerReport } from "../../pages/Dashboard/Reports/CustomerReport";
 import { ProductReport } from "../../pages/Dashboard/Reports/ProductReport";
 import { PurchaseCalender } from "../../pages/Dashboard/Reports/PurchaseCalender";
@@ -8,6 +13,7 @@ import { SaleCalender } from "../../pages/Dashboard/Reports/SaleCalender";
 import { SaleReport } from "../../pages/Dashboard/Reports/SaleReport";
 import { Summary } from "../../pages/Dashboard/Reports/Summary";
 import { SupplierReport } from "../../pages/Dashboard/Reports/SupplierReport";
+import { WarehouseReport } from "../../pages/Dashboard/Reports/WarehouseReport";
 
 export const reportPaths = [
   {
@@ -21,6 +27,12 @@ export const reportPaths = [
     path: "product",
     icon: TbReportAnalytics,
     element: <ProductReport />,
+  },
+  {
+    name: "Alert Product Report",
+    path: "alert-product",
+    icon: TbAlertSquare,
+    element: <AlertProductReport />,
   },
   {
     name: "Purchase Report",
@@ -47,12 +59,12 @@ export const reportPaths = [
     icon: IoCalendarNumberOutline,
     element: <SaleCalender />,
   },
-  // {
-  //   name: "Warehouse Report",
-  //   path: "warehouse",
-  //   icon: TbReportAnalytics,
-  //   element: <WarehouseReport />,
-  // },
+  {
+    name: "Warehouse Report",
+    path: "warehouse",
+    icon: TbReportAnalytics,
+    element: <WarehouseReport />,
+  },
   {
     name: "Supplier Report",
     path: "supplier",

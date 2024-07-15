@@ -1,12 +1,25 @@
 // Import necessary dependencies
-import { ROLE_PERMISSION } from "../../../utilities/apiEndpoints/auth.api";
+import {
+  PERMISSION,
+  ROLE_PERMISSION,
+  SET_PERMISSION,
+} from "../../../utilities/apiEndpoints/auth.api";
 import { openNotification } from "../../../utilities/lib/openToaster";
 import { verifyToken } from "../../../utilities/lib/verifyToken";
 import { baseApi } from "../../api/baseApi";
 
 const rolePermissionApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getAllRolePermission: build.query({
+    getAllPermission: build.query({
+      query: () => ({
+        url: `/${PERMISSION}`,
+        method: "GET",
+      }),
+      transformResponse: (response) => verifyToken(response.data),
+      providesTags: () => [{ type: PERMISSION }, PERMISSION],
+    }),
+
+    getUserRolePermission: build.query({
       query: ({ params }) => ({
         url: `/${ROLE_PERMISSION}`,
         method: "GET",
@@ -14,7 +27,7 @@ const rolePermissionApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: ROLE_PERMISSION, params },
+        { type: ROLE_PERMISSION, ...params },
         ROLE_PERMISSION,
       ],
     }),
@@ -52,14 +65,14 @@ const rolePermissionApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ROLE_PERMISSION] : [];
+        return result ? [{ type: ROLE_PERMISSION }] : [];
       },
     }),
 
     updateRolePermission: build.mutation({
-      query: ({ id, data }) => {
+      query: ({ data }) => {
         return {
-          url: `/${ROLE_PERMISSION}/update/${id}`,
+          url: `/${SET_PERMISSION}`,
           method: "POST",
           body: data,
         };
@@ -77,7 +90,7 @@ const rolePermissionApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ROLE_PERMISSION] : [];
+        return result ? [{ type: ROLE_PERMISSION }] : [];
       },
     }),
 
@@ -101,7 +114,7 @@ const rolePermissionApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ROLE_PERMISSION] : [];
+        return result ? [{ type: ROLE_PERMISSION }] : [];
       },
     }),
 
@@ -125,14 +138,15 @@ const rolePermissionApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ROLE_PERMISSION] : [];
+        return result ? [{ type: ROLE_PERMISSION }] : [];
       },
     }),
   }),
 });
 
 export const {
-  useGetAllRolePermissionQuery,
+  useGetAllPermissionQuery,
+  useGetUserRolePermissionQuery,
   useGetRolePermissionDetailsQuery,
   useCreateRolePermissionMutation,
   useUpdateRolePermissionMutation,

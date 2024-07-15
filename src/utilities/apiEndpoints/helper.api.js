@@ -3,3 +3,5 @@ export const TAX = "helpers/tax";
 export const UNIT = "helpers/unit";
 export const CURRENCY = "helpers/currency";
 export const CUSTOMER_GROUP = "helpers/customer-group";
+
+export const NOTIFICATION = "helpers/notification";

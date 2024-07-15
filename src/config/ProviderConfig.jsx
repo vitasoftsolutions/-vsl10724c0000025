@@ -17,7 +17,7 @@ import { router } from "../routes/routes";
 import { theme } from "../utilities/configs/theme";
 import { useMenuItems } from "../utilities/lib/getPermission";
 
-const LoadingComponent = (data) => {
+const LoadingComponent = ({ data, primaryColor, isLoading: isDataLoading }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -25,11 +25,22 @@ const LoadingComponent = (data) => {
     return () => clearTimeout(timer); // Cleanup timer on unmount
   }, []);
 
-  if (!data || isLoading) {
+  if (isLoading || (isDataLoading && !data)) {
     return (
       <div className="w-full h-screen flex flex-col justify-center items-center gap-5">
         <Spin size="large" />
         <span>Setting up your environment...</span>
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div
+        className="text-xl  font-semibold h-screen flex justify-center items-center w-full"
+        style={{ color: primaryColor }}
+      >
+        Something went wrong. Please contact the developer.
       </div>
     );
   }
@@ -44,29 +55,7 @@ export const ProviderConfig = ({ children }) => {
 
   const { developedBy } = useSelector((state) => state.developer);
 
-  const { data } = useGetGeneralSettingsQuery();
-
-  // const user = useSelector(useCurrentUser);
-  // const warehouseId = user?.warehouse_id;
-
-  // const { data: pettyCashData } = useCheckPettyCashQuery(
-  //   {
-  //     params: {
-  //       warehouse_id: parseInt(warehouseId),
-  //     },
-  //   },
-  //   {
-  //     skip: !warehouseId,
-  //   }
-  // );
-
-  // // const { pettyCash } = useSelector((state) => state.pettyCash);
-
-  // useEffect(() => {
-  //   if (pettyCashData?.data) {
-  //     dispatch(setPettyCash(pettyCashData?.data));
-  //   }
-  // }, [pettyCashData?.data, dispatch]);
+  const { data, isLoading } = useGetGeneralSettingsQuery();
 
   const menuItems = useMenuItems(adminPaths);
 
@@ -108,7 +97,14 @@ export const ProviderConfig = ({ children }) => {
 
   const customTheme = theme({ primaryColor, secondaryColor, textColor });
 
-  if (!developedBy && !data) return <LoadingComponent data={data} />;
+  if (!developedBy && !data)
+    return (
+      <LoadingComponent
+        data={data}
+        primaryColor={primaryColor}
+        isLoading={isLoading}
+      />
+    );
 
   return (
     <React.StrictMode>

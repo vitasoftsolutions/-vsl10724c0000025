@@ -1,21 +1,27 @@
 import { PageContainer } from "@ant-design/pro-layout";
-import { Col, Row, Space } from "antd";
+import { Col, Form, Row, Space } from "antd";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { FilterDateRange } from "../../components/ReusableComponent/FilterDateRange";
 import CustomForm from "../../components/Shared/Form/CustomForm";
 import CustomSelect from "../../components/Shared/Select/CustomSelect";
 import { rowLayout } from "../../layout/FormLayout";
+import { useCurrentUser } from "../../redux/services/auth/authSlice";
 import { useGetWarehousesQuery } from "../../redux/services/warehouse/warehouseApi";
 import {
   DEFAULT_SELECT_VALUES,
   useGlobalParams,
 } from "../../utilities/hooks/useParams";
 import { GlobalUtilityStyle } from "../Styled";
-import { useLocation } from "react-router-dom";
 
 const WarehouseComponent = ({ onChange }) => {
   const params = useGlobalParams({
     selectValue: DEFAULT_SELECT_VALUES,
   });
+
+  const user = useSelector(useCurrentUser);
+  const form = Form.useFormInstance();
 
   const { data, isLoading } = useGetWarehousesQuery({ params });
 
@@ -23,6 +29,12 @@ const WarehouseComponent = ({ onChange }) => {
     value: warehouse?.id?.toString(),
     label: warehouse?.name,
   }));
+
+  useEffect(() => {
+    if (options?.length && !form?.getFieldValue("warehouse_id")) {
+      form.setFieldValue("warehouse_id", user?.warehouse_id?.toString());
+    }
+  }, [form, options, user?.warehouse_id]);
 
   return (
     <CustomSelect

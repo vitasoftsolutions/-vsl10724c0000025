@@ -14,7 +14,7 @@ const rolesApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: ROLE, params },
+        { type: ROLE, ...params },
         ROLE,
       ],
     }),
@@ -52,7 +52,7 @@ const rolesApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ROLE] : [];
+        return result ? [{ type: ROLE }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const rolesApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ROLE] : [];
+        return result ? [{ type: ROLE }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const rolesApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ROLE] : [];
+        return result ? [{ type: ROLE }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const rolesApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ROLE] : [];
+        return result ? [{ type: ROLE }] : [];
       },
     }),
 

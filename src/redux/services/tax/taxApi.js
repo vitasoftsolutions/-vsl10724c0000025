@@ -14,7 +14,10 @@ const taxApi = baseApi.injectEndpoints({
         };
       },
       transformResponse: (response) => verifyToken(response.data),
-      providesTags: (result, error, { params }) => [{ type: TAX, params }, TAX],
+      providesTags: (result, error, { params }) => [
+        { type: TAX, ...params },
+        TAX,
+      ],
     }),
     createTax: build.mutation({
       query: ({ data }) => {
@@ -37,7 +40,7 @@ const taxApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [TAX] : [];
+        return result ? [{ type: TAX }] : [];
       },
     }),
     deleteTax: build.mutation({
@@ -60,7 +63,7 @@ const taxApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [TAX] : [];
+        return result ? [{ type: TAX }] : [];
       },
     }),
   }),

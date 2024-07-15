@@ -1,5 +1,6 @@
 import { Row } from "antd";
 import { useState } from "react";
+import { WarehouseFilter } from "../../../components/ReusableComponent/SearchFormComponents/SearchFormComponent";
 import TransferCreate from "../../../components/Transfer/TransferCreate";
 import TransferTable from "../../../components/Transfer/TransferTable";
 import GlobalContainer from "../../../container/GlobalContainer/GlobalContainer";
@@ -31,26 +32,26 @@ const columns = [
       </span>
     ),
   },
-  // {
-  //   title: "Warehouse (From)",
-  //   dataIndex: "warehouse_from",
-  //   key: "warehouse_from",
-  //   render: (warehouseFrom) => (
-  //     <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
-  //       {warehouseFrom ?? "N/A"}
-  //     </span>
-  //   ),
-  // },
-  // {
-  //   title: "Warehouse (To)",
-  //   dataIndex: "warehouse_to",
-  //   key: "warehouse_to",
-  //   render: (warehouseTo) => (
-  //     <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
-  //       {warehouseTo ?? "N/A"}
-  //     </span>
-  //   ),
-  // },
+  {
+    title: "Warehouse (From)",
+    dataIndex: "warehouse_from",
+    key: "warehouse_from",
+    render: (warehouseFrom) => (
+      <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
+        {warehouseFrom ?? "N/A"}
+      </span>
+    ),
+  },
+  {
+    title: "Warehouse (To)",
+    dataIndex: "warehouse_to",
+    key: "warehouse_to",
+    render: (warehouseTo) => (
+      <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
+        {warehouseTo ?? "N/A"}
+      </span>
+    ),
+  },
 
   {
     title: "Product Cost",
@@ -105,7 +106,11 @@ const columns = [
 ];
 
 const SearchComponent = () => {
-  return <Row {...rowLayout}>{/* <WarehouseFilter /> */}</Row>;
+  return (
+    <Row {...rowLayout}>
+      <WarehouseFilter />
+    </Row>
+  );
 };
 
 const TransferList = () => {

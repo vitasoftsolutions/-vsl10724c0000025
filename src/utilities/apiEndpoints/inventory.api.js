@@ -7,6 +7,7 @@ export const BRAND = "inventory/brand";
 export const PRODUCT = "inventory/product";
 export const ADJUSTMENT = "inventory/adjustment";
 export const STOCK_COUNT = "inventory/stock-count";
+export const STOCK_REQUEST = "inventory/stock-request";
 export const PURCHASE = "inventory/purchase";
 export const SALE = "inventory/sale";
 export const SALE_RETURN = "inventory/sale-return";

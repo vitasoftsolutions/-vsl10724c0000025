@@ -7,7 +7,6 @@ import {
 } from "../../redux/services/roles/rolesApi";
 import { usePagination } from "../../utilities/hooks/usePagination";
 import { useGlobalParams } from "../../utilities/hooks/useParams";
-import { useUrlIndexPermission } from "../../utilities/lib/getPermission";
 import { removeDeleteId } from "../../utilities/lib/signleDeleteRow";
 import DeleteModal from "../Shared/Modal/DeleteModal";
 import CustomTable from "../Shared/Table/CustomTable";
@@ -38,7 +37,7 @@ export const RolesTable = ({
   const { data, isLoading } = useGetAllRolesQuery(
     { params },
     {
-      skip: !useUrlIndexPermission(),
+      // skip: !useUrlIndexPermission("role"),
     }
   );
 

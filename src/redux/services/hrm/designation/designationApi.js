@@ -14,7 +14,7 @@ const designationApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: DESIGNATION, params },
+        { type: DESIGNATION, ...params },
         DESIGNATION,
       ],
     }),
@@ -52,7 +52,7 @@ const designationApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [DESIGNATION] : [];
+        return result ? [{ type: DESIGNATION }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const designationApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [DESIGNATION] : [];
+        return result ? [{ type: DESIGNATION }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const designationApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [DESIGNATION] : [];
+        return result ? [{ type: DESIGNATION }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const designationApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [DESIGNATION] : [];
+        return result ? [{ type: DESIGNATION }] : [];
       },
     }),
 

@@ -15,7 +15,7 @@ const cashierApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: CASHIER, params },
+        { type: CASHIER, ...params },
         CASHIER,
       ],
     }),
@@ -52,7 +52,7 @@ const cashierApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CASHIER] : [];
+        return result ? [{ type: CASHIER }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const cashierApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CASHIER] : [];
+        return result ? [{ type: CASHIER }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const cashierApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CASHIER] : [];
+        return result ? [{ type: CASHIER }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const cashierApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CASHIER] : [];
+        return result ? [{ type: CASHIER }] : [];
       },
     }),
   }),

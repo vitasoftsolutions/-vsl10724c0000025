@@ -15,7 +15,7 @@ const expenseCategoryApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: EXPENSE_CATEGORY, params },
+        { type: EXPENSE_CATEGORY, ...params },
         EXPENSE_CATEGORY,
       ],
     }),
@@ -52,7 +52,7 @@ const expenseCategoryApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EXPENSE_CATEGORY] : [];
+        return result ? [{ type: EXPENSE_CATEGORY }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const expenseCategoryApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EXPENSE_CATEGORY] : [];
+        return result ? [{ type: EXPENSE_CATEGORY }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const expenseCategoryApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EXPENSE_CATEGORY] : [];
+        return result ? [{ type: EXPENSE_CATEGORY }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const expenseCategoryApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EXPENSE_CATEGORY] : [];
+        return result ? [{ type: EXPENSE_CATEGORY }] : [];
       },
     }),
   }),

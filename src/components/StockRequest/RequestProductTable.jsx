@@ -58,7 +58,7 @@ const columns = [
     align: "center",
     width: 100,
     render: (stock, record) =>
-      stock > record ? (
+      stock > record.minQty ? (
         <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
           {stock}
         </span>
@@ -166,7 +166,7 @@ export const RequestProductTable = ({
   setProducts,
 }) => {
   const form = Form.useFormInstance();
-  const warehouseId = Form.useWatch("warehouse_id", form);
+  const warehouseId = Form.useWatch("from_warehouse_id", form);
 
   const currency = useSelector(useCurrency);
 
@@ -182,7 +182,8 @@ export const RequestProductTable = ({
       } = product ?? {};
 
       formValues.product_list.qty[id] = formValues.product_list.qty[id] ?? 1;
-
+      formValues.product_list.min_qty[id] =
+        formValues.product_list.min_qty[id] ?? alert_qty;
       console.log(product);
 
       const stock = getWarehouseQuantity(product_qties, warehouseId);

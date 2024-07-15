@@ -15,7 +15,7 @@ const customerApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: CUSTOMER, params },
+        { type: CUSTOMER, ...params },
         CUSTOMER,
       ],
     }),
@@ -52,7 +52,7 @@ const customerApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CUSTOMER] : [];
+        return result ? [{ type: CUSTOMER }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const customerApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CUSTOMER] : [];
+        return result ? [{ type: CUSTOMER }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const customerApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CUSTOMER] : [];
+        return result ? [{ type: CUSTOMER }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const customerApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CUSTOMER] : [];
+        return result ? [{ type: CUSTOMER }] : [];
       },
     }),
   }),

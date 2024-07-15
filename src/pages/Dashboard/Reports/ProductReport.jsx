@@ -182,12 +182,12 @@ export const ProductReport = () => {
     { skip: !product_id }
   );
 
+  console.log(data);
+
   const [summaryData, setSummaryData] = useState({});
   const [loading, setLoading] = useState(false);
 
   const summaryDetails = createDetailsLayout(summaryData);
-
-  console.log(searchParams);
 
   const summaryType = {
     warehouse_ids: searchParams?.warehouse_ids
@@ -247,7 +247,7 @@ export const ProductReport = () => {
       // setSelectedRows={setSelectedRows}
       // setNewColumns={setNewColumns}
       setParams={setParams}
-      popoverWidth={400}
+      // searchFilterContent={<SearchComponent />}
       // api={PRODUCT}
     >
       {/* <Tabs

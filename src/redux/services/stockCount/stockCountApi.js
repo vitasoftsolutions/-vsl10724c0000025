@@ -15,7 +15,7 @@ const stockCountApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: STOCK_COUNT, params },
+        { type: STOCK_COUNT, ...params },
         STOCK_COUNT,
       ],
     }),
@@ -53,7 +53,7 @@ const stockCountApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [STOCK_COUNT] : [];
+        return result ? [{ type: STOCK_COUNT }] : [];
       },
     }),
 
@@ -78,7 +78,7 @@ const stockCountApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [STOCK_COUNT] : [];
+        return result ? [{ type: STOCK_COUNT }] : [];
       },
     }),
 
@@ -102,7 +102,7 @@ const stockCountApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [STOCK_COUNT] : [];
+        return result ? [{ type: STOCK_COUNT }] : [];
       },
     }),
 
@@ -126,7 +126,7 @@ const stockCountApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [STOCK_COUNT] : [];
+        return result ? [{ type: STOCK_COUNT }] : [];
       },
     }),
   }),

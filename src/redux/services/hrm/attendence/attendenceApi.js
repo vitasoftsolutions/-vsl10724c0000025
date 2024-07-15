@@ -14,7 +14,7 @@ const attendenceApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: ATTENDANCE, params },
+        { type: ATTENDANCE, ...params },
         ATTENDANCE,
       ],
     }),
@@ -52,7 +52,7 @@ const attendenceApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ATTENDANCE] : [];
+        return result ? [{ type: ATTENDANCE }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const attendenceApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ATTENDANCE] : [];
+        return result ? [{ type: ATTENDANCE }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const attendenceApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ATTENDANCE] : [];
+        return result ? [{ type: ATTENDANCE }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const attendenceApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ATTENDANCE] : [];
+        return result ? [{ type: ATTENDANCE }] : [];
       },
     }),
 

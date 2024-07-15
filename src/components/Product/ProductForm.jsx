@@ -22,6 +22,8 @@ import CustomUploader from "../Shared/Upload/CustomUploader";
 import { BrandComponent } from "./overview/BrandComponent";
 import { CategoryComponent } from "./overview/CategoryComponent";
 import ComboProductsComponent from "./overview/ComboProductsComponent";
+import { DifferentPriceComponent } from "./overview/DifferentPriceComponent";
+import { InitialStockComponent } from "./overview/InitialStockComponent";
 import { TaxComponent } from "./overview/TaxComponent";
 import UnitComponent from "./overview/UnitComponent";
 
@@ -162,6 +164,8 @@ const ExpireComponent = () => {
   const productType = Form.useWatch("type", form);
   const hasExpiredDate = Form.useWatch("has_expired_date", form);
 
+  console.log(hasExpiredDate);
+
   if (productType === "Standard" && hasExpiredDate) {
     return (
       <Col {...mdColLayout}>
@@ -179,9 +183,21 @@ const PromotionalPriceComponent = () => {
   const form = Form.useFormInstance();
   const hasPromotionalPrice = Form.useWatch("has_promotion", form);
 
+  // const disabledDate = (current) => {
+  //   return current < dayjs().startOf("day");
+  // };
+
   const start_date = Form.useWatch(["promotion", "starting_date"], form);
 
   const disabledDateStart = (current) => {
+    // if (start_date) {
+    //   return (
+    //     current && start_date && current < dayjs(start_date).startOf("day")
+    //   );
+    // } else {
+    //   return current < dayjs().startOf("day");
+    // }
+
     return disabledDate(current, start_date);
   };
 
@@ -234,6 +250,10 @@ const ProductForm = ({
   setFormValues,
   products,
   setProducts,
+  initialWarehouses,
+  setInitialWarehouses,
+  priceWarehouses,
+  setPriceWarehouses,
   ...props
 }) => {
   const productType = Form.useWatch("type", props.form);
@@ -256,10 +276,6 @@ const ProductForm = ({
 
         <Col {...colLayout}>
           <ProductCodeComponent />
-        </Col>
-
-        <Col {...colLayout}>
-          <CustomInput label="Stock Quantity" type={"number"} name={"qty"} />
         </Col>
 
         <Col {...colLayout}>
@@ -315,6 +331,34 @@ const ProductForm = ({
         </Col>
       </Row>
 
+      <Row {...rowLayout}>
+        <Col {...fullColLayout}>
+          <CustomCheckbox
+            label="Initial Stock"
+            name="has_stock"
+            // required={true}
+          />
+        </Col>
+
+        <InitialStockComponent
+          initialWarehouses={initialWarehouses}
+          setInitialWarehouses={setInitialWarehouses}
+          formValues={formValues}
+          setFormValues={setFormValues}
+        />
+
+        {/* <Col {...fullColLayout}>
+          <CustomCheckbox
+            label="Featured Product"
+            name="has_featured"
+            subLabel="(It will be displayed on POS)"
+          />
+        </Col>
+        <Col {...fullColLayout}>
+          <CustomCheckbox label="Embeded Barcode" name="embedded_barcode" />
+        </Col> */}
+      </Row>
+
       <Row {...rowLayout} justify={"center"} align={"middle"}>
         <Col xs={24}>
           <CustomUploader
@@ -322,6 +366,7 @@ const ProductForm = ({
             name={"attachments"}
             multiple={true}
             required={true}
+            type="img"
           />
         </Col>
       </Row>
@@ -333,7 +378,7 @@ const ProductForm = ({
 
       {/* <VarientComponent /> */}
 
-      {/* <Row {...rowLayout}>
+      <Row {...rowLayout}>
         <Col {...fullColLayout}>
           <CustomCheckbox
             label="This product has different price for different warehouse"
@@ -347,7 +392,7 @@ const ProductForm = ({
           priceWarehouses={priceWarehouses}
           setPriceWarehouses={setPriceWarehouses}
         />
-      </Row> */}
+      </Row>
 
       <Row {...rowLayout}>
         <Col {...fullColLayout}>

@@ -14,7 +14,7 @@ const transferApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: TRANSFER, params },
+        { type: TRANSFER, ...params },
         TRANSFER,
       ],
     }),
@@ -52,7 +52,7 @@ const transferApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [TRANSFER] : [];
+        return result ? [{ type: TRANSFER }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const transferApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [TRANSFER] : [];
+        return result ? [{ type: TRANSFER }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const transferApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [TRANSFER] : [];
+        return result ? [{ type: TRANSFER }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const transferApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [TRANSFER] : [];
+        return result ? [{ type: TRANSFER }] : [];
       },
     }),
 

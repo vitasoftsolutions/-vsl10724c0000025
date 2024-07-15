@@ -14,7 +14,7 @@ const giftCardTypeApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: GIFT_CARD_TYPE, params },
+        { type: GIFT_CARD_TYPE, ...params },
         GIFT_CARD_TYPE,
       ],
     }),
@@ -51,7 +51,7 @@ const giftCardTypeApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD_TYPE] : [];
+        return result ? [{ type: GIFT_CARD_TYPE }] : [];
       },
     }),
 
@@ -76,7 +76,7 @@ const giftCardTypeApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD_TYPE] : [];
+        return result ? [{ type: GIFT_CARD_TYPE }] : [];
       },
     }),
 
@@ -100,7 +100,7 @@ const giftCardTypeApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD_TYPE] : [];
+        return result ? [{ type: GIFT_CARD_TYPE }] : [];
       },
     }),
 
@@ -124,7 +124,7 @@ const giftCardTypeApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD_TYPE] : [];
+        return result ? [{ type: GIFT_CARD_TYPE }] : [];
       },
     }),
   }),

@@ -15,7 +15,7 @@ const expenseApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: EXPENSE, params },
+        { type: EXPENSE, ...params },
         EXPENSE,
       ],
     }),
@@ -52,7 +52,7 @@ const expenseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EXPENSE] : [];
+        return result ? [{ type: EXPENSE }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const expenseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EXPENSE] : [];
+        return result ? [{ type: EXPENSE }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const expenseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EXPENSE] : [];
+        return result ? [{ type: EXPENSE }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const expenseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [EXPENSE] : [];
+        return result ? [{ type: EXPENSE }] : [];
       },
     }),
   }),

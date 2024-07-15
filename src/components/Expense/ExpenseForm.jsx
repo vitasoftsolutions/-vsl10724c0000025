@@ -9,6 +9,7 @@ import {
   useGlobalParams,
 } from "../../utilities/hooks/useParams";
 import { getCurrentDate } from "../../utilities/lib/currentDate";
+import { WarehouseComponent } from "../ReusableComponent/WarehouseComponent";
 import CustomDatepicker from "../Shared/DatePicker/CustomDatepicker";
 import CustomForm from "../Shared/Form/CustomForm";
 import CustomInput from "../Shared/Input/CustomInput";
@@ -47,17 +48,15 @@ export const ExpenseForm = (props) => {
   return (
     <CustomForm {...props}>
       <Row {...rowLayout}>
-        {/* <Col {...mdColLayout}>
-          <WarehouseComponent />
-        </Col> */}
-
         <Col {...mdColLayout}>
-          <CustomInput label="Expense By" name={"expense_by"} />
+          <WarehouseComponent />
         </Col>
         <Col {...mdColLayout}>
           <ExpenseCategoryComponent />
         </Col>
-
+        <Col {...mdColLayout}>
+          <CustomInput label="Expense By" name={"expense_by"} />
+        </Col>
         <Col {...mdColLayout}>
           <CustomInput
             label="Amount"

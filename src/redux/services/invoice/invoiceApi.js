@@ -14,7 +14,7 @@ const invoiceApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: GENERATE_INVOICE, params },
+        { type: GENERATE_INVOICE, ...params },
         GENERATE_INVOICE,
       ],
     }),
@@ -52,7 +52,7 @@ const invoiceApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GENERATE_INVOICE] : [];
+        return result ? [{ type: GENERATE_INVOICE }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const invoiceApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GENERATE_INVOICE] : [];
+        return result ? [{ type: GENERATE_INVOICE }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const invoiceApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GENERATE_INVOICE] : [];
+        return result ? [{ type: GENERATE_INVOICE }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const invoiceApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GENERATE_INVOICE] : [];
+        return result ? [{ type: GENERATE_INVOICE }] : [];
       },
     }),
   }),

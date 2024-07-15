@@ -14,21 +14,10 @@ const pettyCashApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: PETTY_CASH, params },
+        { type: PETTY_CASH, ...params },
         PETTY_CASH,
       ],
     }),
-
-    // getPettyCashDetails: build.query({
-    //   query: ({ id }) => {
-    //     return {
-    //       url: `${PETTY_CASH}/show/${id}`,
-    //       method: "GET",
-    //     };
-    //   },
-    //   transformResponse: (response) => verifyToken(response.data),
-    //   providesTags: (result, error, { id }) => [{ type: PETTY_CASH, id }],
-    // }),
 
     createPettyCash: build.mutation({
       query: ({ data }) => {
@@ -40,7 +29,6 @@ const pettyCashApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => {
         if (response?.success) {
-          // openNotification("success", response?.message);
           return response;
         }
       },
@@ -51,46 +39,34 @@ const pettyCashApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PETTY_CASH] : [];
+        return result ? [{ type: PETTY_CASH }] : [];
       },
     }),
 
-    // updatePettyCash: build.mutation({
-    //   query: ({ id, data }) => {
-    //     return {
-    //       url: `/${PETTY_CASH}/update/${id}`,
-    //       method: "POST",
-    //       body: data,
-    //     };
-    //   },
-    //   transformResponse: (response) => {
-    //     if (response?.success) {
-    //       openNotification("success", response?.message);
-    //       return response;
-    //     }
-    //   },
-    //   invalidatesTags: (result) => {
-    //     return result ? [PETTY_CASH] : [];
-    //   },
-    // }),
-
-    // updatePettyCashStatus: build.mutation({
-    //   query: (id) => {
-    //     return {
-    //       url: `/${PETTY_CASH}/status/${id}`,
-    //       method: "POST",
-    //     };
-    //   },
-    //   transformResponse: (response) => {
-    //     if (response?.success) {
-    //       openNotification("success", response?.message);
-    //       return response;
-    //     }
-    //   },
-    //   invalidatesTags: (result) => {
-    //     return result ? [PETTY_CASH] : [];
-    //   },
-    // }),
+    updatePettyCash: build.mutation({
+      query: ({ id, data }) => {
+        return {
+          url: `/${PETTY_CASH}/update/${id}`,
+          method: "POST",
+          body: data,
+        };
+      },
+      transformResponse: (response) => {
+        if (response?.success) {
+          openNotification("success", response?.message);
+          return response;
+        }
+      },
+      transformErrorResponse: (response) => {
+        if (response?.data?.success === false) {
+          openNotification("error", response?.data?.message);
+          return response;
+        }
+      },
+      invalidatesTags: (result) => {
+        return result ? [{ type: PETTY_CASH }] : [];
+      },
+    }),
 
     deletePettyCash: build.mutation({
       query: (id) => {
@@ -112,7 +88,7 @@ const pettyCashApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PETTY_CASH] : [];
+        return result ? [{ type: PETTY_CASH }] : [];
       },
     }),
 
@@ -124,12 +100,11 @@ const pettyCashApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => {
         if (response?.success) {
-          // openNotification("success", response?.message);
           return response;
         }
       },
       providesTags: (result, error, { params }) => [
-        { type: PETTY_CASH, params },
+        { type: PETTY_CASH, ...params },
         PETTY_CASH,
       ],
     }),
@@ -139,7 +114,7 @@ const pettyCashApi = baseApi.injectEndpoints({
 export const {
   useGetAllPettyCashQuery,
   // useGetPettyCashDetailsQuery,
-  // useUpdatePettyCashMutation,
+  useUpdatePettyCashMutation,
   // useUpdatePettyCashStatusMutation,
   useDeletePettyCashMutation,
   useCreatePettyCashMutation,

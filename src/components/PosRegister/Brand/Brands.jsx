@@ -3,12 +3,17 @@ import { useCallback, useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { productImage } from "../../../assets/data/productImage";
 import { useGetBrandsQuery } from "../../../redux/services/brand/brandApi";
-import CustomCheckbox from "../../Shared/Checkbox/CustomCheckbox";
 import CustomForm from "../../Shared/Form/CustomForm";
 
 const { Meta } = Card;
 
-export const Brands = ({ handleSubmit, onClose }) => {
+export const Brands = ({
+  color,
+  isSelected,
+  handleCardSelect,
+  handleSubmit,
+  onClose,
+}) => {
   const [brandForm] = Form.useForm();
 
   const [pagination, setPagination] = useState({
@@ -86,34 +91,34 @@ export const Brands = ({ handleSubmit, onClose }) => {
             handleSubmit={handleSubmit}
             onClose={onClose}
           >
-            {/* <CustomCheckbox mode="group"></CustomCheckbox> */}
-            <div className="grid grid-cols-4 gap-4 overflow-x-hidden">
+            <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 gap-4">
               {brands &&
                 newData?.map((item) => (
-                  <CustomCheckbox
-                    name={item.id}
+                  <Card
+                    bordered
+                    hoverable
+                    style={{
+                      borderColor: isSelected.includes(item.id) && color,
+                    }}
                     key={item.id}
-                    label={
-                      <Card
-                        bordered
-                        hoverable
-                        style={{
-                          backgroundColor: "white",
-                          width: 160,
-                        }}
-                        className="shadow-md border "
-                        cover={
-                          <img
-                            alt="example"
-                            className="h-[6rem] object-cover px-4 pt-4"
-                            src={productImage}
-                          />
-                        }
-                      >
-                        <Meta className="text-center" title={item.name} />
-                      </Card>
+                    className="shadow-md border "
+                    onClick={() => handleCardSelect(item.id)}
+                    cover={
+                      <div className="w-full">
+                        <img
+                          alt="example"
+                          className="overflow-hidden size-32 object-cover mx-auto"
+                          src={productImage}
+                        />
+                      </div>
                     }
-                  />
+                  >
+                    <Meta
+                      className="text-center"
+                      title={<span>{item?.name}</span>}
+                      style={{}}
+                    />
+                  </Card>
                 ))}
             </div>
           </CustomForm>

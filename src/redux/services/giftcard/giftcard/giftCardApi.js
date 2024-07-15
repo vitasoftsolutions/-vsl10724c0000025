@@ -52,7 +52,7 @@ const giftCardApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD] : [];
+        return result ? [{ type: GIFT_CARD }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const giftCardApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD] : [];
+        return result ? [{ type: GIFT_CARD }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const giftCardApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD] : [];
+        return result ? [{ type: GIFT_CARD }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const giftCardApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD] : [];
+        return result ? [{ type: GIFT_CARD }] : [];
       },
     }),
   }),

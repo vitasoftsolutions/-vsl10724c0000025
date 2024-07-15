@@ -1,8 +1,6 @@
 import { Col, Form, Modal, Row, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { colLayout, mdColLayout, rowLayout } from "../../../layout/FormLayout";
-import { useCurrency } from "../../../redux/services/pos/posSlice";
 import { useGetAllTaxQuery } from "../../../redux/services/tax/taxApi";
 import { useGetAllUnitQuery } from "../../../redux/services/unit/unitApi";
 import {
@@ -11,7 +9,6 @@ import {
 } from "../../../utilities/hooks/useParams";
 import { calculateOriginalPrice } from "../../../utilities/lib/calculatePrice";
 import { calculateTotals } from "../../../utilities/lib/calculateTotals";
-import { showCurrency } from "../../../utilities/lib/currency";
 import {
   decrementCounter,
   incrementCounter,
@@ -23,6 +20,10 @@ import CustomInput from "../../Shared/Input/CustomInput";
 import { ProductController } from "../../Shared/ProductControllerComponent/ProductController";
 import CustomSelect from "../../Shared/Select/CustomSelect";
 import { columns, partialColumns } from "./productColumns";
+import { getWarehouseQuantity } from "../../../utilities/lib/getWarehouseQty";
+import { useSelector } from "react-redux";
+import { useCurrency } from "../../../redux/services/pos/posSlice";
+import { showCurrency } from "../../../utilities/lib/currency";
 
 const TaxComponent = ({ productId, setProductUnits }) => {
   const params = useGlobalParams({
@@ -343,7 +344,7 @@ export const PurchaseProductTable = ({
 }) => {
   const form = Form.useFormInstance();
   const type = Form.useWatch("purchase_status", form);
-  // const warehouseId = Form.useWatch("warehouse_id", form);
+  const warehouseId = Form.useWatch("warehouse_id", form);
 
   const [productEditModal, setProductEditModal] = useState(false);
   const [productId, setProductId] = useState(undefined);
@@ -410,7 +411,7 @@ export const PurchaseProductTable = ({
 
   const currency = useSelector(useCurrency);
 
-  // console.log(productUnits);
+  console.log(productUnits);
 
   const dataSource = products?.map((product) => {
     const {
@@ -423,10 +424,10 @@ export const PurchaseProductTable = ({
       tax_id,
       taxes,
       tax_method,
-      // product_qties,
+      product_qties,
     } = product ?? {};
 
-    // const stock = getWarehouseQuantity(product_qties, warehouseId);
+    const stock = getWarehouseQuantity(product_qties, warehouseId);
 
     console.log(tax_method);
 
@@ -461,7 +462,7 @@ export const PurchaseProductTable = ({
         currency
       ),
       delete: true,
-      // stock,
+      stock,
       discount: showCurrency(formValues.product_list.discount[id], currency),
       tax: showCurrency(formValues.product_list.tax[id], currency),
       subTotal: showCurrency(formValues.product_list.total[id], currency),

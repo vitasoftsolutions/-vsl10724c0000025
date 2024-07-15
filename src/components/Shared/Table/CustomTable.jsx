@@ -239,6 +239,7 @@ const CustomTable = ({
     fixed: "right",
     render: (props, record) => {
       if (record?.handleDetailsModal && isDetailsPermitted) {
+        // if (record?.handleDetailsModal) {
         return (
           <div className="flex justify-center items-center gap-2">
             <button

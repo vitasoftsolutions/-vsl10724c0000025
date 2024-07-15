@@ -14,7 +14,7 @@ const unitApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: UNIT, params },
+        { type: UNIT, ...params },
         UNIT,
       ],
     }),
@@ -52,7 +52,7 @@ const unitApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [UNIT] : [];
+        return result ? [{ type: UNIT }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const unitApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [UNIT] : [];
+        return result ? [{ type: UNIT }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const unitApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [UNIT] : [];
+        return result ? [{ type: UNIT }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const unitApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [UNIT] : [];
+        return result ? [{ type: UNIT }] : [];
       },
     }),
   }),

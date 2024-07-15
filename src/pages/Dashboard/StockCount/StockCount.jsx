@@ -19,6 +19,16 @@ const columns = [
     ),
   },
   {
+    title: "Warehouse",
+    dataIndex: "warehouse",
+    key: "warehouse",
+    render: (warehouse) => (
+      <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
+        {warehouse ?? "N/A"}
+      </span>
+    ),
+  },
+  {
     title: "Category",
     dataIndex: "category",
     key: "category",

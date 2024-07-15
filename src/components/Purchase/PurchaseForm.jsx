@@ -5,7 +5,6 @@ import { purchaseStatusOptions } from "../../assets/data/purchaseStatus";
 import {
   colLayout,
   fullColLayout,
-  largeLayout,
   mdColLayout,
   rowLayout,
 } from "../../layout/FormLayout";
@@ -138,7 +137,6 @@ export const PurchaseForm = ({
       setProductUnits({
         purchase_units: {},
         tax_rate: {},
-        inclusive_tax_rate: {},
       });
     }
   }, [setFormValues, setProductUnits, setProducts, warehouseId]);
@@ -147,20 +145,20 @@ export const PurchaseForm = ({
     <>
       <CustomForm {...props}>
         <Row {...rowLayout}>
-          {/* <Col {...colLayout}>
+          <Col {...colLayout}>
             <WarehouseComponent />
-          </Col> */}
-          <Col {...largeLayout}>
+          </Col>
+          <Col {...colLayout}>
             <SupplierComponent />
           </Col>
-          <Col {...largeLayout}>
-            <CustomDatepicker label="Date" required name="purchase_at" />
-          </Col>
-          <Col {...largeLayout}>
+          <Col {...colLayout}>
             <PurchaseStatus />
           </Col>
-          <Col {...largeLayout}>
+          <Col {...mdColLayout}>
             <CurrencyFormComponent />
+          </Col>
+          <Col {...mdColLayout}>
+            <CustomDatepicker label="Date" required name="purchase_at" />
           </Col>
 
           <PurchaseProductTable

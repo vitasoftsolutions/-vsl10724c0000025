@@ -15,7 +15,7 @@ const currencyApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: CURRENCY, params },
+        { type: CURRENCY, ...params },
         CURRENCY,
       ],
     }),
@@ -40,7 +40,7 @@ const currencyApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CURRENCY] : [];
+        return result ? [{ type: CURRENCY }] : [];
       },
     }),
     updateCurrencyDefault: build.mutation({
@@ -63,7 +63,7 @@ const currencyApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CURRENCY] : [];
+        return result ? [{ type: CURRENCY }] : [];
       },
     }),
     deleteCurrency: build.mutation({
@@ -86,7 +86,7 @@ const currencyApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CURRENCY] : [];
+        return result ? [{ type: CURRENCY }] : [];
       },
     }),
   }),

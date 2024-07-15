@@ -14,7 +14,7 @@ const purchaseApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: PURCHASE, params },
+        { type: PURCHASE, ...params },
         PURCHASE,
       ],
     }),
@@ -52,7 +52,7 @@ const purchaseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PURCHASE] : [];
+        return result ? [{ type: PURCHASE }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const purchaseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PURCHASE] : [];
+        return result ? [{ type: PURCHASE }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const purchaseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PURCHASE] : [];
+        return result ? [{ type: PURCHASE }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const purchaseApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [PURCHASE] : [];
+        return result ? [{ type: PURCHASE }] : [];
       },
     }),
 

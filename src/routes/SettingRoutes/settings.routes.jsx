@@ -1,5 +1,4 @@
 import { AiOutlineDeploymentUnit } from "react-icons/ai";
-import { BsCurrencyPound } from "react-icons/bs";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { LuClipboardType } from "react-icons/lu";
 import {
@@ -9,7 +8,6 @@ import {
 } from "react-icons/md";
 import { RiVerifiedBadgeLine } from "react-icons/ri";
 import { TbReceiptTax } from "react-icons/tb";
-import CurrencyList from "../../pages/Dashboard/Currency/CurrencyList";
 import CustomerGroup from "../../pages/Dashboard/CustomerGroup/CustomerGroup";
 import { EmailConfig } from "../../pages/Dashboard/EmailConfig/EmailConfig";
 import GeneralSettings from "../../pages/Dashboard/GeneralSettings/GeneralSettings";
@@ -24,7 +22,7 @@ import UnitList from "../../pages/Dashboard/Unit/UnitList";
 export const settingPaths = [
   {
     name: "Role Permission",
-    path: "role-permission",
+    path: "role",
     icon: RiVerifiedBadgeLine,
     element: <Roles />,
   },

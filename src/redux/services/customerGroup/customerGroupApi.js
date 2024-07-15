@@ -15,7 +15,7 @@ const customerGroupApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: CUSTOMER_GROUP, params },
+        { type: CUSTOMER_GROUP, ...params },
         CUSTOMER_GROUP,
       ],
     }),
@@ -52,7 +52,7 @@ const customerGroupApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CUSTOMER_GROUP] : [];
+        return result ? [{ type: CUSTOMER_GROUP }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const customerGroupApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CUSTOMER_GROUP] : [];
+        return result ? [{ type: CUSTOMER_GROUP }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const customerGroupApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CUSTOMER_GROUP] : [];
+        return result ? [{ type: CUSTOMER_GROUP }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const customerGroupApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CUSTOMER_GROUP] : [];
+        return result ? [{ type: CUSTOMER_GROUP }] : [];
       },
     }),
   }),

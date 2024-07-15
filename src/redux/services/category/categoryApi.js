@@ -15,7 +15,7 @@ const categoryApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: CATEGORY, params },
+        { type: CATEGORY, ...params },
         CATEGORY,
       ],
     }),
@@ -51,7 +51,7 @@ const categoryApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CATEGORY] : [];
+        return result ? [{ type: CATEGORY }] : [];
       },
     }),
     updateCategory: build.mutation({
@@ -75,7 +75,7 @@ const categoryApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CATEGORY] : [];
+        return result ? [{ type: CATEGORY }] : [];
       },
     }),
     updateCategoryStatus: build.mutation({
@@ -98,7 +98,7 @@ const categoryApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CATEGORY] : [];
+        return result ? [{ type: CATEGORY }] : [];
       },
     }),
     deleteCategory: build.mutation({
@@ -121,7 +121,7 @@ const categoryApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [CATEGORY] : [];
+        return result ? [{ type: CATEGORY }] : [];
       },
     }),
   }),

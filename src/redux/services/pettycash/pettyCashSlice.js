@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   pettyCash: "Close",
+  pettyCashId: undefined,
 };
 
 const pettyCashSlice = createSlice({
@@ -9,7 +10,8 @@ const pettyCashSlice = createSlice({
   initialState,
   reducers: {
     setPettyCash: (state, action) => {
-      state.pettyCash = action.payload;
+      state.pettyCash = action.payload?.status;
+      state.pettyCashId = action.payload?.id;
     },
     clearPettyCash: (state) => {
       state.pettyCash = "Close";

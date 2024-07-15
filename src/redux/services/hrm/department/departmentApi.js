@@ -15,7 +15,7 @@ const departmentApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: DEPARTMENT, params },
+        { type: DEPARTMENT, ...params },
         DEPARTMENT,
       ],
     }),
@@ -50,7 +50,7 @@ const departmentApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [DEPARTMENT] : [];
+        return result ? [{ type: DEPARTMENT }] : [];
       },
     }),
     updateDepartment: build.mutation({
@@ -74,7 +74,7 @@ const departmentApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [DEPARTMENT] : [];
+        return result ? [{ type: DEPARTMENT }] : [];
       },
     }),
     updateDepartmentStatus: build.mutation({
@@ -97,7 +97,7 @@ const departmentApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [DEPARTMENT] : [];
+        return result ? [{ type: DEPARTMENT }] : [];
       },
     }),
     deleteDepartment: build.mutation({
@@ -120,7 +120,7 @@ const departmentApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [DEPARTMENT] : [];
+        return result ? [{ type: DEPARTMENT }] : [];
       },
     }),
   }),

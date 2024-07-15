@@ -14,7 +14,7 @@ const giftCardDesignApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: GIFT_CARD_DESIGN, params },
+        { type: GIFT_CARD_DESIGN, ...params },
         GIFT_CARD_DESIGN,
       ],
     }),
@@ -52,7 +52,7 @@ const giftCardDesignApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD_DESIGN] : [];
+        return result ? [{ type: GIFT_CARD_DESIGN }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const giftCardDesignApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD_DESIGN] : [];
+        return result ? [{ type: GIFT_CARD_DESIGN }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const giftCardDesignApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD_DESIGN] : [];
+        return result ? [{ type: GIFT_CARD_DESIGN }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const giftCardDesignApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GIFT_CARD_DESIGN] : [];
+        return result ? [{ type: GIFT_CARD_DESIGN }] : [];
       },
     }),
   }),

@@ -48,6 +48,10 @@ html {
   color: var(--firstColor); 
 } */
 
+.ant-card .ant-card-cover img {
+  /* border-radius: 999px; */
+}
+
 .ant-input-number-input-wrap {
   font-size: 14px;
 }
@@ -153,4 +157,9 @@ html {
 
 .animate-leave {
   animation: leave 0.2s ease-in forwards;
+}
+
+.profile-ul:hover {
+  cursor: pointer;
+  color: var(--firstColor) !important;
 }

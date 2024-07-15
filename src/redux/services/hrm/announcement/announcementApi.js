@@ -14,7 +14,7 @@ const announcementApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: ANNOUNCEMENT, params },
+        { type: ANNOUNCEMENT, ...params },
         ANNOUNCEMENT,
       ],
     }),
@@ -52,7 +52,7 @@ const announcementApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ANNOUNCEMENT] : [];
+        return result ? [{ type: ANNOUNCEMENT }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const announcementApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ANNOUNCEMENT] : [];
+        return result ? [{ type: ANNOUNCEMENT }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const announcementApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ANNOUNCEMENT] : [];
+        return result ? [{ type: ANNOUNCEMENT }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const announcementApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [ANNOUNCEMENT] : [];
+        return result ? [{ type: ANNOUNCEMENT }] : [];
       },
     }),
 

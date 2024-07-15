@@ -14,7 +14,7 @@ const saleApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: SALE, params },
+        { type: SALE, ...params },
         SALE,
       ],
     }),
@@ -52,7 +52,7 @@ const saleApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SALE] : [];
+        return result ? [{ type: SALE }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const saleApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SALE] : [];
+        return result ? [{ type: SALE }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const saleApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SALE] : [];
+        return result ? [{ type: SALE }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const saleApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SALE] : [];
+        return result ? [{ type: SALE }] : [];
       },
     }),
   }),

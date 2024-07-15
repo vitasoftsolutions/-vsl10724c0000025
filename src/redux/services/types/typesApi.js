@@ -19,7 +19,7 @@ const typesApi = baseApi.injectEndpoints({
       transformResponse: (response) => verifyToken(response.data),
       transformErrorResponse,
       providesTags: (result, error, { params }) => [
-        { type: TYPE, params },
+        { type: TYPE, ...params },
         TYPE,
       ],
     }),
@@ -34,7 +34,7 @@ const typesApi = baseApi.injectEndpoints({
       transformResponse: transformResponse,
       transformErrorResponse: transformErrorResponse,
       invalidatesTags: (result) => {
-        return result ? [TYPE] : [];
+        return result ? [{ type: TYPE }] : [];
       },
     }),
     deleteType: build.mutation({
@@ -46,7 +46,7 @@ const typesApi = baseApi.injectEndpoints({
       },
       transformResponse: transformResponse,
       invalidatesTags: (result) => {
-        return result ? [TYPE] : [];
+        return result ? [{ type: TYPE }] : [];
       },
     }),
   }),

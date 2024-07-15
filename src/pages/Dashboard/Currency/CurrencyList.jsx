@@ -59,7 +59,7 @@ const CurrencyList = () => {
       setSelectedRows={setSelectedRows}
       setNewColumns={setNewColumns}
       setParams={setParams}
-      popoverWidth={400}
+      // searchFilterContent={<SearchComponent />}
       api={CURRENCY}
     >
       <CurrencyCreate />

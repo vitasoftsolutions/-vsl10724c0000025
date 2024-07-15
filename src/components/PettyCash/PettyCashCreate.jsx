@@ -17,7 +17,7 @@ export const PettyCashCreate = () => {
 
   const handleSubmit = async (values) => {
     const { data, error } = await createPettyCash({
-      data: { ...values, status: "Open" },
+      data: { ...values },
     });
 
     if (data?.success) {

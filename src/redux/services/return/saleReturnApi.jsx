@@ -14,7 +14,7 @@ const saleReturnApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: SALE_RETURN, params },
+        { type: SALE_RETURN, ...params },
         SALE_RETURN,
       ],
     }),
@@ -52,7 +52,7 @@ const saleReturnApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SALE_RETURN] : [];
+        return result ? [{ type: SALE_RETURN }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const saleReturnApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SALE_RETURN] : [];
+        return result ? [{ type: SALE_RETURN }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const saleReturnApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SALE_RETURN] : [];
+        return result ? [{ type: SALE_RETURN }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const saleReturnApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SALE_RETURN] : [];
+        return result ? [{ type: SALE_RETURN }] : [];
       },
     }),
 

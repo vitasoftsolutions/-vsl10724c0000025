@@ -15,7 +15,7 @@ const supplierApi = baseApi.injectEndpoints({
       },
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: SUPPLIER, params },
+        { type: SUPPLIER, ...params },
         SUPPLIER,
       ],
     }),
@@ -52,7 +52,7 @@ const supplierApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SUPPLIER] : [];
+        return result ? [{ type: SUPPLIER }] : [];
       },
     }),
 
@@ -77,7 +77,7 @@ const supplierApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SUPPLIER] : [];
+        return result ? [{ type: SUPPLIER }] : [];
       },
     }),
 
@@ -101,7 +101,7 @@ const supplierApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SUPPLIER] : [];
+        return result ? [{ type: SUPPLIER }] : [];
       },
     }),
 
@@ -125,7 +125,7 @@ const supplierApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [SUPPLIER] : [];
+        return result ? [{ type: SUPPLIER }] : [];
       },
     }),
   }),

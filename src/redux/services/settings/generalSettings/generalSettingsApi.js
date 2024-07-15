@@ -8,7 +8,7 @@ const generalSettingsApi = baseApi.injectEndpoints({
     getGeneralSettings: build.query({
       query: () => {
         return {
-          url: `/${GENERAL_SETTING}/show/5`,
+          url: `/${GENERAL_SETTING}/show/1`,
           method: "GET",
         };
       },
@@ -19,7 +19,7 @@ const generalSettingsApi = baseApi.injectEndpoints({
     updateGeneralSettings: build.mutation({
       query: ({ data }) => {
         return {
-          url: `/${GENERAL_SETTING}/update/5`,
+          url: `/${GENERAL_SETTING}/update/1`,
           method: "POST",
           body: data,
         };

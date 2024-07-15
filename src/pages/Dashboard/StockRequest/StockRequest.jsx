@@ -8,50 +8,60 @@ import { useFilterParams } from "../../../utilities/hooks/useParams";
 
 const columns = [
   {
-    title: "Reference",
-    dataIndex: "reference",
-    key: "reference",
-    align: "center",
-    render: (reference) => (
+    title: "From Warehouse",
+    dataIndex: "fromWarehouse",
+    key: "fromWarehouse",
+    render: (fromWarehouse) => (
       <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
-        {reference}
+        {fromWarehouse ?? "N/A"}
       </span>
     ),
   },
   {
-    title: "Warehouse",
-    dataIndex: "warehouse",
-    key: "warehouse",
-    render: (warehouse) => (
+    title: "To Warehouse",
+    dataIndex: "toWarehouse",
+    key: "toWarehouse",
+    render: (toWarehouse) => (
       <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
-        {warehouse ?? "N/A"}
+        {toWarehouse ?? "N/A"}
       </span>
     ),
   },
   {
-    title: "Status",
-    dataIndex: "status",
-    key: "status",
-    width: "100px",
+    title: "Request Quantity",
+    dataIndex: "reqQty",
+    key: "reqQty",
     align: "center",
-    render: (status) => {
-      return (
-        <div
-          className={`p-0 ${
-            status.toString() === "Accepted"
-              ? "bg-[#DCFCE7] text-[#16A34A]"
-              : status.toString() === "Pending"
-              ? "bg-[#FEF3C7] text-[#D97706]"
-              : "bg-[#FEF2F2] text-[#EF4444]"
-          } rounded shadow-md w-[80px]`}
-        >
-          <span className="font-medium text-xs px-2 w-full">
-            {status.toString() === "1" ? "Active" : "Inactive"}
-          </span>
-        </div>
-      );
-    },
+    render: (reqQty) => (
+      <span className="text-xs font-medium md:text-sm text-dark dark:text-white87">
+        {reqQty ?? "N/A"}
+      </span>
+    ),
   },
+  // {
+  //   title: "Status",
+  //   dataIndex: "status",
+  //   key: "status",
+  //   width: "100px",
+  //   align: "center",
+  //   render: (status) => {
+  //     return (
+  //       <div
+  //         className={`p-0 ${
+  //           status?.toString() === "Accepted"
+  //             ? "bg-[#DCFCE7] text-[#16A34A]"
+  //             : status.toString() === "Pending"
+  //             ? "bg-[#FEF3C7] text-[#D97706]"
+  //             : "bg-[#FEF2F2] text-[#EF4444]"
+  //         } rounded shadow-md w-[80px]`}
+  //       >
+  //         <span className="font-medium text-xs px-2 w-full">
+  //           {status?.toString() === "1" ? "Active" : "Inactive"}
+  //         </span>
+  //       </div>
+  //     );
+  //   },
+  // },
 ];
 
 const StockRequest = () => {

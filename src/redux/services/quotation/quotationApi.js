@@ -14,7 +14,7 @@ const quotationApi = baseApi.injectEndpoints({
       }),
       transformResponse: (response) => verifyToken(response.data),
       providesTags: (result, error, { params }) => [
-        { type: GENERATE_QUOTATION, params },
+        { type: GENERATE_QUOTATION, ...params },
         GENERATE_QUOTATION,
       ],
     }),
@@ -54,7 +54,7 @@ const quotationApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GENERATE_QUOTATION] : [];
+        return result ? [{ type: GENERATE_QUOTATION }] : [];
       },
     }),
 
@@ -79,7 +79,7 @@ const quotationApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GENERATE_QUOTATION] : [];
+        return result ? [{ type: GENERATE_QUOTATION }] : [];
       },
     }),
 
@@ -103,7 +103,7 @@ const quotationApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GENERATE_QUOTATION] : [];
+        return result ? [{ type: GENERATE_QUOTATION }] : [];
       },
     }),
 
@@ -127,7 +127,7 @@ const quotationApi = baseApi.injectEndpoints({
         }
       },
       invalidatesTags: (result) => {
-        return result ? [GENERATE_QUOTATION] : [];
+        return result ? [{ type: GENERATE_QUOTATION }] : [];
       },
     }),
   }),

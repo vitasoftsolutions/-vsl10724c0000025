@@ -12,6 +12,7 @@ import {
   PurchaseUnitFilter,
   SaleUnitFilter,
   TaxFilter,
+  WarehouseFilter,
 } from "../../../components/ReusableComponent/SearchFormComponents/SearchFormComponent";
 import GlobalContainer from "../../../container/GlobalContainer/GlobalContainer";
 import { rowLayout } from "../../../layout/FormLayout";
@@ -127,7 +128,7 @@ const SearchComponent = () => {
   return (
     <Row {...rowLayout}>
       <ProductTypeFilter />
-      {/* <WarehouseFilter name="product_warehouse_ids" /> */}
+      <WarehouseFilter name="product_warehouse_ids" />
       <BarcodeFilter />
       <BrandFilter />
       <CategoryFilter />
